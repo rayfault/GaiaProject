@@ -613,11 +613,7 @@ namespace GaiaCore.Gaia
                 return System.IO.Path.Combine(Directory.GetCurrentDirectory(), "finishgame");
             }
         }
-        /// <summary>
-        /// 后退一步
-        /// </summary>
-        /// <param name="GameName"></param>
-        /// <returns></returns>
+
         public static bool UndoOneStep(string GameName)
         {
             var gg = GetGameByName(GameName);
@@ -645,15 +641,6 @@ namespace GaiaCore.Gaia
             return true;
         }
 
-
-        /// <summary>
-        /// 恢复游戏
-        /// </summary>
-        /// <param name="GameName"></param>
-        /// <param name="gg"></param>
-        /// <param name="isToDict"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
         public static GaiaGame RestoreGame(string GameName,GaiaGame gg,bool isToDict = false,int? row=null)
         {
             return RestoreGameWithActionLog(new KeyValuePair<string, GaiaGame>(GameName, gg),null, isToDict, row:row);

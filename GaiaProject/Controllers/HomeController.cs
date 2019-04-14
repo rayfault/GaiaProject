@@ -15,6 +15,7 @@ using GaiaProject.Data;
 using GaiaDbContext.Models.HomeViewModels;
 using GaiaDbContext.Models.SystemModels;
 using GaiaProject.Models.HomeViewModels;
+using Microsoft.Extensions.Logging;
 using GaiaProject.Notice;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -28,14 +29,16 @@ namespace GaiaProject.Controllers
         public IMemoryCache cache;
         private readonly SignInManager<ApplicationUser> signInManager;
         public const string IndexName = "IndexName";
+        private readonly ILogger _logger;
 
-        public HomeController(ApplicationDbContext dbContext,UserManager<ApplicationUser> userManager, IEmailSender emailSender, IMemoryCache cache, SignInManager<ApplicationUser> signInManager)
+        public HomeController(ApplicationDbContext dbContext,UserManager<ApplicationUser> userManager, IEmailSender emailSender, IMemoryCache cache, SignInManager<ApplicationUser> signInManager, ILoggerFactory loggerFactory)
         {
             this._userManager = userManager;
             this.dbContext = dbContext;
             this._emailSender = emailSender;
             this.cache = cache;
             this.signInManager = signInManager;
+            this._logger = loggerFactory.CreateLogger<AccountController>();
         }
         public IActionResult Index()
         {
@@ -44,8 +47,6 @@ namespace GaiaProject.Controllers
             {
                 return Redirect("/News/ShowInfo/3");
             }
-
-            //AuthMessageSender.SendEmail("325153468@qq.com", "test", "sbs");
 
             var task = _userManager.GetUserAsync(HttpContext.User);
             Task[] taskarray = new Task[] { task };
@@ -56,11 +57,6 @@ namespace GaiaProject.Controllers
                 ViewData["GameList"] = GameMgr.GetAllGame(task.Result.UserName);
                 ViewData["ServerStartTime"] = ServerStatus.ServerStartTime;
             }
-#if DEBUG
-            //ViewData["Message"] = @"yucenyucen@126.com";
-            //ViewData["GameList"] = GameMgr.GetAllGame(@"yucenyucen@126.com");
-#endif
-            //获取首页声明
             string remark;
             this.cache.TryGetValue(IndexName, out remark);
             if (string.IsNullOrEmpty(remark))
@@ -734,6 +730,7 @@ namespace GaiaProject.Controllers
             {
                 return "error:" + "服务器维护中";
             }
+
             var task = _userManager.GetUserAsync(HttpContext.User);
             Task[] taskarray = new Task[] { task };
             Task.WaitAll(taskarray, millisecondsTimeout: 1000);
@@ -761,7 +758,9 @@ namespace GaiaProject.Controllers
                 {
                     GameMgr.WriteUserActionLog(syntax, task.Result.UserName);
                 }
-                catch { }
+                catch {
+                    _logger.LogInformation(syntax);
+                }
                 gaiaGame.Syntax(syntax, out string log, task.Result.UserName, dbContext: this.dbContext);
                 if (!string.IsNullOrEmpty(log))
                 {
