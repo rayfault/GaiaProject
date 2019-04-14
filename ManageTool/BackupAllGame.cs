@@ -14,13 +14,15 @@ namespace ManageTool
     /// </summary>
     public class BackupAllGame : Daemon
     {
-        protected override int m_timeOut { get => 300 * 1000; }
+        protected override int m_timeOut { get => 30 * 1000; }
 
         public override void InvokeAction()
         {
             //备份到数据库
             //DbContextOptions<ApplicationDbContext> dbContextOptions=new DbContextOptions<ApplicationDbContext>();
             //ApplicationDbContext dbContext=new ApplicationDbContext(options: dbContextOptions);
+
+            Console.WriteLine("hello");
 
             //备份到文件
             GameMgr.BackupDictionary();

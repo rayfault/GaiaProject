@@ -68,7 +68,6 @@ namespace GaiaProject
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GaiaDbContext"))
-                //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GaiaDbContext"))
                 );
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -82,7 +81,6 @@ namespace GaiaProject
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.Configure<IdentityOptions>(options =>
             {
-                //邮箱不允许重复
                 options.User.RequireUniqueEmail = true;
                 //允许使用用户名
                 //options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
@@ -96,10 +94,7 @@ namespace GaiaProject
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(3650);
             });
 
-            //第一个参数为配置文件路径，默认为项目目录下config.json
-            //第二个参数为是否缓存配置文件，默认false
             services.AddUEditorService();
-            //缓存系统
             services.AddMemoryCache();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -110,7 +105,6 @@ namespace GaiaProject
                         factory.Create(typeof(SharedResources));
                 });
 
-            //解决输出中文问题https://q.cnblogs.com/q/86078/
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
         }
 
@@ -137,6 +131,7 @@ namespace GaiaProject
             {
                 new CultureInfo("pt-BR"),
                 new CultureInfo("zh-CN"),
+                new CultureInfo("ko-KR"),
                 new CultureInfo("en"),
             };
 

@@ -309,10 +309,12 @@ namespace GaiaCore.Gaia
                 "UserGameModels","resetNumber","resetPayNumber","paygrade","username","remark","isTishi","IsSocket","IsRotatoMap","dropType","dropHour"
             });
             var str = JsonConvert.SerializeObject(m_dic, Formatting.Indented, jsetting);
+            Console.WriteLine(BackupDataPath);
+            Console.WriteLine(str);
             var logPath = System.IO.Path.Combine(BackupDataPath, DateTime.Now.ToString("yyyyMMddHHmmss") + "backup.txt");
-            var logWriter = System.IO.File.CreateText(logPath);
-            logWriter.Write(str);
-            logWriter.Dispose();
+            Console.WriteLine(logPath);
+            Console.WriteLine(str);
+            File.WriteAllText(str, logPath);
             return true;
         }
 
