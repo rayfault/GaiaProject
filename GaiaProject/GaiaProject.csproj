@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
+  <!--
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
-
+  -->
   <PropertyGroup>
     <UserSecretsId>aspnet-GaiaProject3-cb6a989f-07b8-4870-89ac-657a80dd50c0</UserSecretsId>
   </PropertyGroup>
