@@ -21,11 +21,6 @@ namespace GaiaCore.Gaia.Game
         {
             if (type.Name.Contains("ATT") && gaiaGame.dbContext != null && gaiaGame.IsSaveToDb)
             {
-                if (type.Name == "ATT11")
-                {
-                    int a = 1;
-                }
-
                 GameFactionExtendModel gameFactionExtendModel = gaiaGame.dbContext.GameFactionExtendModel.SingleOrDefault(
                     item => item.gameinfo_name == gaiaGame.GameName &&
                             item.FactionName == faction.FactionName.ToString());

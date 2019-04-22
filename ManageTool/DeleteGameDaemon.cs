@@ -35,9 +35,6 @@ namespace ManageTool
                 //判断上次行动时间是否大于设置drop时间
 
                 int hours = gaiaGame.dropHour == 0 ? 240 : gaiaGame.dropHour;
-#if false
-                hours = 10;
-#endif
 
                 if (DateTime.Now.AddDays(-hours / 24) > gaiaGame.LastMoveTime)
                 {
@@ -73,9 +70,6 @@ namespace ManageTool
                             Console.WriteLine(e);
                         }
                     }
-
-
-
                 }
             }
         }

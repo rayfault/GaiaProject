@@ -395,10 +395,6 @@ namespace GaiaCore.Gaia
                 int rowIndex = 1;
                 foreach (var str in item.Value.UserActionLog.Split(new String[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (str.Contains("Xenos:build I3"))
-                    {
-                        int a = 1;
-                    }
                     gg.Syntax(str, out string log);
                     if (!string.IsNullOrEmpty(log))
                     {

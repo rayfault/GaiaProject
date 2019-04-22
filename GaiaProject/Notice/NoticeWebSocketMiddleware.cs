@@ -176,8 +176,9 @@ namespace GaiaProject.Notice
                                 }
                                 catch (Exception exception)
                                 {
-
+                                    Console.WriteLine(exception.Message);
                                 }
+                                Console.WriteLine(e.Message);
                             }
                         }
                     }
