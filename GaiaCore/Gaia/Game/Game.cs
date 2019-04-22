@@ -585,12 +585,6 @@ namespace GaiaCore.Gaia
                 return false;
             }
 
-            //断点调试
-            if (syntax.Contains("Ambas:pass rbt7.pass turn".ToLower()))
-            {
-                int a = 1;
-            }
-
             var ret=ProcessCommandWithBackup(commandList.ToArray(),faction,out log);
             faction.ResetUnfinishAction();
             //如果执行没有成功

@@ -70,9 +70,6 @@ namespace GaiaProject.Controllers
 
             NewsInfoModel newModel = base.News_Update(model);
             return Redirect("/News/Index?type="+model.type.ToString());
-            return View(newModel);
         }
-
-
     }
 }

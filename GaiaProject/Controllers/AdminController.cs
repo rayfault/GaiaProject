@@ -58,9 +58,7 @@ namespace GaiaProject.Controllers
         {
             NewsInfoModel newModel = base.News_Update(model);
             return Redirect("/Admin/NewsIndex");
-            return View(newModel);
         }
-
 
         public IActionResult NewsIndexUpdate()
         {

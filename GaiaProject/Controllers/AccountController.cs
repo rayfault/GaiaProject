@@ -131,15 +131,6 @@ namespace GaiaProject.Controllers
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        //发送邮箱确认
-                        if (1 == 2)
-                        {
-                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                            var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account",
-                                new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                            await _emailSender.SendEmailAsync(model.Email, "确认账户",
-                                $"请点击链接确认你的账户: <a href='{callbackUrl}'>link</a>");
-                        }
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation(3, "User created a new account with password.");
                         return RedirectToLocal(returnUrl);

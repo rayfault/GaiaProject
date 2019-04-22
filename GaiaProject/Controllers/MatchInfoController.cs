@@ -488,7 +488,6 @@ namespace GaiaProject.Controllers
                 jsonData.info.state = 200;
             }
             return new JsonResult(jsonData);
-            return null;
         }
         /// <summary>
         /// 全部没结束的计分

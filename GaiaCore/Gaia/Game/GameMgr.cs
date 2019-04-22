@@ -299,8 +299,8 @@ namespace GaiaCore.Gaia
                 "UserGameModels","resetNumber","resetPayNumber","paygrade","username","remark","isTishi","IsSocket","IsRotatoMap","dropType","dropHour"
             });
             var str = JsonConvert.SerializeObject(m_dic, Formatting.Indented, jsetting);
-            Console.WriteLine("========== Log : " + logPath + " ==========");
             var logPath = System.IO.Path.Combine(BackupDataPath, DateTime.Now.ToString("yyyyMMddHHmmss") + "backup.txt");
+            Console.WriteLine("========== Log : " + logPath + " ==========");
             File.WriteAllText(logPath, str + "\r\n");
         }
 
