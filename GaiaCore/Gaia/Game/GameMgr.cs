@@ -314,7 +314,7 @@ namespace GaiaCore.Gaia
             var logPath = System.IO.Path.Combine(BackupDataPath, DateTime.Now.ToString("yyyyMMddHHmmss") + "backup.txt");
             Console.WriteLine(logPath);
             Console.WriteLine(str);
-            File.WriteAllText(str, logPath);
+            File.WriteAllText(logPath, str);
             return true;
         }
 
