@@ -14,7 +14,7 @@ namespace ManageTool
     /// </summary>
     public class BackupAllGame : Daemon
     {
-        protected override int m_timeOut { get => 30 * 1000; }
+        protected override int m_timeOut { get => 60 * 1000; }
 
         public override void InvokeAction()
         {
