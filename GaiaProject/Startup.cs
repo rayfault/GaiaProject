@@ -131,7 +131,6 @@ namespace GaiaProject
             {
                 new CultureInfo("pt-BR"),
                 new CultureInfo("zh-CN"),
-                new CultureInfo("ko-KR"),
                 new CultureInfo("en"),
             };
 
