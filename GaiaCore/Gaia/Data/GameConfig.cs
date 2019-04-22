@@ -8,14 +8,7 @@ namespace GaiaCore.Gaia.Data
 {
     public class GameConfig
     {
-        /// <summary>
-        /// 游戏备份大小
-        /// </summary>
-        //public const int GAME_FILE_SIZE = 1024 * 50;
         public const int GAME_FILE_SIZE = 1024 * 50;
-        /// <summary>
-        /// 游戏保存天数
-        /// </summary>
         public const int GAME_SAVE_DAYS = 10;
     }
 }

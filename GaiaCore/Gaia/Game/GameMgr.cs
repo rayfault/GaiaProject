@@ -193,24 +193,14 @@ namespace GaiaCore.Gaia
             List<FileInfo> listFile = (from p in d.EnumerateFiles() orderby p.Name descending select p).ToList();
             foreach (var item in listFile)
             {
-                //超过5个备份就删除
-                if (number > 50)
+                if (number <= 50)
                 {
-                    item.Delete();
+                    number++;
                 }
                 else
                 {
-                    //大于50K留下
-                    if (item.Length > GameConfig.GAME_FILE_SIZE)
-                    {
-                        number++;
-                    }
-                    else
-                    {
-                        item.Delete();
-                    }
+                    item.Delete();
                 }
-
             }
         }
 
@@ -300,7 +290,7 @@ namespace GaiaCore.Gaia
             }
         }
 
-        public static bool BackupDictionary()
+        public static void BackupDictionary()
         {
             JsonSerializerSettings jsetting = new JsonSerializerSettings();
             jsetting.ContractResolver = new LimitPropsContractResolver(new string[]
@@ -309,13 +299,9 @@ namespace GaiaCore.Gaia
                 "UserGameModels","resetNumber","resetPayNumber","paygrade","username","remark","isTishi","IsSocket","IsRotatoMap","dropType","dropHour"
             });
             var str = JsonConvert.SerializeObject(m_dic, Formatting.Indented, jsetting);
-            Console.WriteLine(BackupDataPath);
-            Console.WriteLine(str);
+            Console.WriteLine("========== Log : " + logPath + " ==========");
             var logPath = System.IO.Path.Combine(BackupDataPath, DateTime.Now.ToString("yyyyMMddHHmmss") + "backup.txt");
-            Console.WriteLine(logPath);
-            Console.WriteLine(str);
-            File.WriteAllText(logPath, str);
-            return true;
+            File.WriteAllText(logPath, str + "\r\n");
         }
 
         public static void WriteUserActionLog(string syntax,string username)

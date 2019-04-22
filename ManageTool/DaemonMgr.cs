@@ -14,7 +14,6 @@ namespace ManageTool
 
         public static void StartAll()
         {
-            //删除结束和过时游戏
             DeleteGameMgr.Start();
             BackupGameDaemon.Start();
         }
