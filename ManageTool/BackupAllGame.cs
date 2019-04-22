@@ -22,8 +22,6 @@ namespace ManageTool
             //DbContextOptions<ApplicationDbContext> dbContextOptions=new DbContextOptions<ApplicationDbContext>();
             //ApplicationDbContext dbContext=new ApplicationDbContext(options: dbContextOptions);
 
-            Console.WriteLine("hello");
-
             //备份到文件
             GameMgr.BackupDictionary();
             GameMgr.RemoveOldBackupData();

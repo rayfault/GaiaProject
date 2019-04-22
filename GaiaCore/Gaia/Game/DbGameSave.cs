@@ -150,7 +150,7 @@ namespace GaiaCore.Gaia.Game
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             //var server = gaiaGame.dbContext.Database.GetService<this>();
@@ -210,7 +210,7 @@ namespace GaiaCore.Gaia.Game
                     }
                     catch (Exception e)
                     {
-
+                        Console.WriteLine(e.Message);
                     }
                 }
 
@@ -253,7 +253,7 @@ namespace GaiaCore.Gaia.Game
                         }
                         catch (Exception e)
                         {
-
+                            Console.WriteLine(e.Message);
                         }
 
                         //是否需要保存的联赛数据
@@ -265,7 +265,7 @@ namespace GaiaCore.Gaia.Game
                             }
                             catch (Exception e)
                             {
-
+                                Console.WriteLine(e.Message);
                             }
                         }
 
@@ -277,7 +277,7 @@ namespace GaiaCore.Gaia.Game
                     catch (Exception e)
                     {
                         string msg = e.Message;
-                        int a = 1;
+                        Console.WriteLine(msg);
                     }
                 }
             }
@@ -450,18 +450,6 @@ namespace GaiaCore.Gaia.Game
                 rankindex++;
 
             }
-
-            int a = 1;
         }
-
-
-        /// <summary>
-        /// 保存开局的创建信息
-        /// </summary>
-//        public void SaveCreateGameInfo()
-//        {
-//            
-//        }
-
     }
 }
