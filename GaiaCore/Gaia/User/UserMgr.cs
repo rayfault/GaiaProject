@@ -12,11 +12,7 @@ namespace GaiaCore.Gaia.User
     {
         public static List<string> PowerUserList = new List<string>()
         {
-            "yucenyucen@126.com",
-            "xsssssssch@hotmail.com",
-            "toto",
-            "totofans",
-            "xiaohuang",
+            "RRR",
         };
         public static bool IsPowerUser(string username)
         {
