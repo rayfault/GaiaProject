@@ -33,17 +33,17 @@ namespace GaiaCore.Gaia
             int transNumNeed = 0;
             if (map.HexArray[row, col] == null)
             {
-                log = "出界了兄弟";
+                log = "정상적인 공간이 아닙니다.";
                 return false;
             }
             if (map.HexArray[row, col].TFTerrain == Terrain.Purple)
             {
-                log = "不能在紫色星球上建造";
+                log = "불모행성에는 광산을 건설 하실 수 없습니다.";
                 return false;
             }
             if (map.HexArray[row, col].TFTerrain == Terrain.Empty)
             {
-                log = "你必须在星球上进行建造";
+                log = "우주공간에는 광산을 건설 하실 수 없습니다.";
                 return false;
             }
 

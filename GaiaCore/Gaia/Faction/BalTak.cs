@@ -33,7 +33,7 @@ namespace GaiaCore.Gaia
             {
                 if (index == 1)
                 {
-                    log = "炽炎族没建立SH之前不能提升航海";
+                    log = "의회를 짓지 않으면 네비게이션 기술을 올릴 수 없습니다.";
                     return false;
                 }
             }
@@ -49,12 +49,12 @@ namespace GaiaCore.Gaia
                 case "gaiaq":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "炽炎族特殊自由行动兑换比例为1：1";
+                        log = "가이아 포머와 1:1 교환해야 합니다.";
                         return false;
                     }
                     if (Gaias.Count < rFNum)
                     {
-                        log = "盖亚数量不够";
+                        log = "가이아 포머의 갯수가 부족합니다.";
                         return false;
                     }
                     for (int i = 0; i < rFNum; i++)
@@ -74,12 +74,12 @@ namespace GaiaCore.Gaia
                 case "gaiao":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "炽炎族特殊自由行动兑换比例为1：1";
+                        log = "가이아 포머와 1:1 교환해야 합니다.";
                         return false;
                     }
                     if (Gaias.Count < rFNum)
                     {
-                        log = "盖亚数量不够";
+                        log = "가이아 포머의 갯수가 부족합니다.";
                         return false;
                     }
                     for (int i = 0; i < rFNum; i++)
@@ -99,12 +99,12 @@ namespace GaiaCore.Gaia
                 case "gaiac":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "炽炎族特殊自由行动兑换比例为1：1";
+                        log = "가이아 포머와 1:1 교환해야 합니다.";
                         return false;
                     }
                     if (Gaias.Count < rFNum)
                     {
-                        log = "盖亚数量不够";
+                        log = "가이아 포머의 갯수가 부족합니다.";
                         return false;
                     }
                     for (int i = 0; i < rFNum; i++)
@@ -124,12 +124,12 @@ namespace GaiaCore.Gaia
                 case "gaiapwt":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "炽炎族特殊自由行动兑换比例为1：1";
+                        log = "가이아 포머와 1:1 교환해야 합니다.";
                         return false;
                     }
                     if (Gaias.Count < rFNum)
                     {
-                        log = "盖亚数量不够";
+                        log = "가이아 포머의 갯수가 부족합니다.";
                         return false;
                     }
                     for (int i = 0; i < rFNum; i++)

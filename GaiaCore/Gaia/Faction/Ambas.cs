@@ -44,18 +44,18 @@ namespace GaiaCore.Gaia
 
             if (hex1.FactionBelongTo != FactionName || hex2.FactionBelongTo != FactionName)
             {
-                log = "两个地点必须都属于" + ChineseName;
+                log = "본인 소유의 행성이 아닙니다" + ChineseName;
                 return false;
             }
             if (hex1.TFTerrain == Terrain.Black || hex2.TFTerrain == Terrain.Black)
             {
-                log = "死星不能交换";
+                log = "우주 공간입니다.";
                 return false;
             }
             if (!((hex1.Building is StrongHold && hex2.Building is Mine)
                 || (hex2.Building is StrongHold && hex1.Building is Mine)))
             {
-                log = "两个建筑必须一个是矿场一个是要塞";
+                log = "의회와 광산을 고르셔야 합니다.";
                 return false;
             }
             ActionQueue.Enqueue(() =>

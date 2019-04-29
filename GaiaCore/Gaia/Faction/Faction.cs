@@ -424,7 +424,7 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (index < 0 | index > 5)
             {
-                throw new Exception("超出科技条边界");
+                throw new Exception("기술 범위를 벗어났습니다.");
             }
             var level = (int)list[index].GetValue(this);
             if (level >= 0 && level < 4)
@@ -435,12 +435,12 @@ namespace GaiaCore.Gaia
             {
                 if (GaiaGame.FactionList.Exists(x => (int)list[index].GetValue(x) == 5))
                 {
-                    log = "已经有人登顶了,只有一人能登顶";
+                    log = "Level 5를 이미 다른 종족이 선점했습니다.";
                     return false;
                 }
                 if (!GameTileList.Exists(x => x is AllianceTile && x.IsUsed == false))
                 {
-                    log = "需要星盟版(ALT)才能继续升级";
+                    log = "Level 5에 올라가려면 사용하지 않은 연방토큰이 필요합니다.";
                     return false;
                 }
                 if (isIncreaseAllianceTileCost)
@@ -451,7 +451,7 @@ namespace GaiaCore.Gaia
             }
             else
             {
-                log = "满级情况不能继续升级";
+                log = "더 이상 기술 업그레이드를 할 수 없습니다.";
                 return false;
             }
             return true;
