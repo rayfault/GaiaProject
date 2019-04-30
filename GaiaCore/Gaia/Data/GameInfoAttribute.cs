@@ -28,7 +28,7 @@ namespace GaiaCore.Gaia.Data
             new PwInfo(){code = "fix2p",name = "双人固定"},
             new PwInfo(){code = "random2p",name = "双人随机"},
             //new PwInfo(){code = "fix3p",name = "双人变体固定"},
-            //new PwInfo(){code = "random3p",name = "双人变体随机"},
+            new PwInfo(){code = "random3p",name = "双人变体随机"},
             new PwInfo(){code = "fix4p",name = "四人固定"},
             //new PwInfo(){code = "random4p",name = "四人部分随机"},
             new PwInfo(){code = "randomall4p",name = "四人完全随机"},

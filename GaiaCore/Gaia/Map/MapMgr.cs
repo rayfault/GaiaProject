@@ -306,11 +306,11 @@ namespace GaiaCore.Gaia
             //result.AddSpaceSector(6, 7, ssl[2], random);
             var randomList = new List<SpaceSector>()
             {
-                ssl[0],ssl[1],ssl[2],ssl[3],ssl[4],ssl[5],ssl[6]
+                ssl[0],ssl[1],ssl[2],ssl[3],ssl[4],ssl[5],ssl[6], ssl[7]
             };
             var centerTuple = new List<Tuple<int, int>>()
             {
-                { 2,5},{6,2},{6,7},{10,4 },{ 3,10},{7,12},{ 10,9}
+                { 2,5},{6,2},{6,7},{10,4 },{ 3,10},{7,12},{ 10,9}, {3, 15}            
             };
 
             centerTuple.ForEach(x =>
