@@ -49,7 +49,7 @@ namespace GaiaCore.Gaia
             }
             if (hex1.TFTerrain == Terrain.Black || hex2.TFTerrain == Terrain.Black)
             {
-                log = "우주 공간입니다.";
+                log = "검은 행성과는 교환할 수 없습니다.";
                 return false;
             }
             if (!((hex1.Building is StrongHold && hex2.Building is Mine)

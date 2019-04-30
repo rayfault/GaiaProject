@@ -33,12 +33,12 @@ namespace GaiaCore.Gaia
             var hex = GaiaGame.Map.HexArray[row, col];
             if (!(hex.FactionBelongTo == this.FactionName && hex.Building is ResearchLab))
             {
-                log = "执行Downgrade命令必须对着自己的ResearchLab执行";
+                log = "본인 소유의 연구소에 실행하셔야 합니다.";
                 return false;
             }
             if (!TradeCenters.Any())
             {
-                log = "玩家必须还剩余TC";
+                log = "교역소가 남아있지 않습니다.";
                 return false;
             }
 

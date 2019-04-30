@@ -74,31 +74,31 @@ namespace GaiaCore.Gaia
                 oreTF = Math.Max((transNumNeed - TerraFormNumber), 0);
                 if (oreTF * GetTransformCost > Ore)
                 {
-                    log = string.Format("原始地形为{0},需要地形{1},需要矿石为{2}或者使用action行动获取铲子", map.HexArray[row, col].OGTerrain.ToString(), OGTerrain.ToString(), transNumNeed * GetTransformCost);
+                    log = string.Format("원래행성{0}을, {1}으로 변환하실려면 {2}개의 광물이 필요합니다.", map.HexArray[row, col].OGTerrain.ToString(), OGTerrain.ToString(), transNumNeed * GetTransformCost);
                     return false;
                 }
             }
             if (Mines.Count < 1)
             {
-                log = "已经没有可用的矿场了";
+                log = "남은 광산이 없습니다.";
                 return false;
             }
             if (!(Credit >= m_MineCreditCost && Ore >= m_MineOreCost + Math.Max((transNumNeed - TerraFormNumber), 0) * GetTransformCost))
             {
-                log = "资源不够";
+                log = "광산을 건설하기 위한 자원이 부족합니다.";
                 return false;
             }
 
             if (!isGaiaPlanet && !(map.HexArray[row, col].Building == null && map.HexArray[row, col].FactionBelongTo == null))
             {
-                log = "该地点已经有人占领了";
+                log = "해당 지역에는 건설 하실수 없습니다.";
                 return false;
             }
             var distanceNeed = map.CalShipDistanceNeed(row, col, FactionName);
 
             if (!isGaiaPlanet && QICs * 2 < distanceNeed - GetShipDistance)
             {
-                log = string.Format("建筑距离太偏远了,需要{0}个Q来加速", (distanceNeed - GetShipDistance + 1) / 2);
+                log = string.Format("해당 지역에 짓기 위해서는, {0}개의 정보토큰이 필요합니다.", (distanceNeed - GetShipDistance + 1) / 2);
                 return false;
             }
             QSHIP = Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0);
@@ -166,7 +166,7 @@ namespace GaiaCore.Gaia
             TempQICs -= 1;
             if (QICs < 0)
             {
-                log = "至少需要一块Q";
+                log = "정보 토큰이 부족합니다.";
                 return false;
             }
             return false;
@@ -230,34 +230,34 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (m_GaiaLevel == 0)
             {
-                log = "执行盖亚行动至少需要一级GaiaLevel";
+                log = "가이아 레벨이 0입니다.";
                 return false;
             }
             if (Gaias.Count == 0)
             {
-                log = "没有可用的盖亚建筑";
+                log = "남아 있는 가이아포머가 없습니다.";
                 return false;
             }
             if (PowerToken1 + PowerToken2 + PowerToken3 < GetGaiaCost())
             {
-                log = "能量豆资源不够";
+                log = "가이아포머를 위한 파워토큰이 부족합니다.";
                 return false;
             }
             if (map.HexArray[row, col].TFTerrain != Terrain.Purple)
             {
-                log = "必须为紫星";
+                log = "불모행성 지역이 아닙니다.";
                 return false;
             }
             if (!(map.HexArray[row, col].Building == null && map.HexArray[row, col].FactionBelongTo == null))
             {
-                log = "该地点已经有人占领了";
+                log = "해당 지역에는 건설하실 수 없습니다.";
                 return false;
             }
             var distanceNeed = map.CalShipDistanceNeed(row, col, FactionName);
 
             if (QICs * 2 < distanceNeed - GetShipDistance)
             {
-                log = string.Format("建筑距离太偏远了,需要{0}个Q来加速", (distanceNeed - GetShipDistance + 1) / 2);
+                log = string.Format("해당 지역에 짓기 위해서는, {0}개의 정보토큰이 필요합니다.", (distanceNeed - GetShipDistance + 1) / 2);
                 return false;
             }
 
@@ -317,7 +317,7 @@ namespace GaiaCore.Gaia
         {
             if (PowerToken1 + PowerToken2 + PowerToken3 <n)
             {
-                throw new Exception(string.Format("没有{0}个能量豆来移除",n));
+                throw new Exception(string.Format("파워토큰 갯수가{0}개보다 적습니다.",n));
             }
             PowerToken1 -= n;
             if (PowerToken1 < 0)
@@ -465,12 +465,12 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (map.HexArray[row, col].OGTerrain != OGTerrain)
             {
-                log = "地形不符";
+                log = "종족의 기본행성이 아닙니다.";
                 return false;
             }
             if (!(map.HexArray[row, col].Building == null && map.HexArray[row, col].FactionBelongTo == null))
             {
-                log = "该地点已经有人占领了";
+                log = "해당 지역에는 건설 하실수 없습니다.";
                 return false;
             }
 
@@ -486,12 +486,12 @@ namespace GaiaCore.Gaia
             var hex = map.HexArray[row, col];
             if (hex.FactionBelongTo != FactionName)
             {
-                log = string.Format("该地点还不属于{0}", FactionName.ToString());
+                log = string.Format("본인 종족의 건물이 아닙니다.{0}", FactionName.ToString());
                 return false;
             }
             if (!Enum.TryParse(buildStr, true, out BuildingSyntax syn))
             {
-                log = string.Format("没有该建筑物", buildStr);
+                log = string.Format("해당 건물이 없습니다.{0}", buildStr);
                 return false;
             }
             int oreCost;
@@ -552,27 +552,27 @@ namespace GaiaCore.Gaia
                     }
                     break;
                 default:
-                    log = "未知升级";
+                    log = "존재하지 않는 건물입니다.";
                     return false;
             }
             if (build == null)
             {
-                log = string.Format("需要该建筑{0}还有剩余", buildStr);
+                log = string.Format("해당 건물이 존재하지 않습니다.{0}", buildStr);
                 return false;
             }
             if (hex.Building.GetType() != build.BaseBuilding)
             {
-                log = string.Format("需要基础建筑类型{0}", build.BaseBuilding.ToString());
+                log = string.Format("해당 건물에서 업그레이드 할 수 없습니다.{0}", build.BaseBuilding.ToString());
                 return false;
             }
             if (hex.TFTerrain==Terrain.Black)
             {
-                log = "死星建筑不能升级";
+                log = "업그레이드 되지 않는 건물입니다.";
                 return false;
             }
             if (Ore < oreCost || Credit < creditCost)
             {
-                log = string.Format("资源不够");
+                log = string.Format("자원이 부족합니다.");
                 return false;
             }
             if (syn == BuildingSyntax.RL|| syn == BuildingSyntax.AC1 || syn == BuildingSyntax.AC2)
@@ -711,71 +711,71 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (TerraFormNumber != 0 && !(IsUseAction2&&TerraFormNumber==1))
             {
-                log = "还存在没使用的Transform";
+                log = "테라 포밍을 아직 사용하지 않습니다.";
                 return true;
             }
             if (TempShip != 0)
             {
-                log = "还存在没使用的QICSHIP";
+                log = "사용하지 않은 QIC 점프가 있습니다.";
                 return true;
             }
             if (TechTilesGet > 0)
             {
-                log = "还存在没拿取的科技版";
+                log = "기술 타일을 가져오지 않았습니다.";
                 return true;
             }else if (TechTilesGet < 0)
             {
-                log = "板子拿多了喂！想干嘛兄弟";
+                log = string.Format("기술 타일을 {0}개 추가로 설정했습니다.", (-1 * TechTilesGet).ToString());
                 return true;
             }
             if (m_AllianceTileGet != 0)
             {
-                log = "还存在没拿取的星盟版";
+                log = "연방 토큰을 가져오지 않았습니다.";
                 return true;
             }
             if (TechReturn != 0)
             {
-                log = "获取高级科技必须退回一个低级科技";
+                log = "고급 기술 타일로 덮을 기술 타일을 설정하지 않았습니다.";
                 return true;
             }
             if (PlanetGet != 0)
             {
-                log = "死星没有被放置在地图上";
+                log = "검은 행성 위치를 설정하지 않았습니다.";
                 return true;
             }
             if (TechTracAdv > 0)
             {
-                log = "可以提升科技,请选择一项科技提升,如果不需要提升科技请使用-advance语句";
+                log = "과학 기술을 향상시켜주세요. 만약 필요없다면 -advance 를 사용해주세요";
                 return true;
             }
             if (TechTracAdv <-1)
             {
-                log = "科技升级多咯";
+                log = "많은 과학 기술 향상을 선택했습니다.";
                 return true;
             }
             if (TechTracAdv == -1 && !IsNoAdvTechTrack)
             {
-                log = "多升级了一次科技";
+                log = "과학 기술 향상이 두 번 선택되었다.";
                 return true;
             }
             if (AllianceTileReGet != 0)
             {
-                log = "选择要重新积分的城版";
+                log = "연방 보너스 한번 더 받기가 선택되지 않았습니다.";
                 return true;
             }
             if (FactionSpecialAbility < 0)
             {
-                log = "貌似多用了SH能力?";
+                log = "종족 능력을 여러 번 사용하였습니다.";
                 return true;
             }
             if (FactionSpecialAbility > 0)
             {
-                log = "SH能力别忘了使用啊";
+                log = "종족 능력을 사용하지 않았습니다.";
                 return true;
             }
             if (AllianceTileCost > GameTileList.Count(x => x is AllianceTile && x.IsUsed == false))
             {
-                log = "指令消耗的星盟板块数量大于拥有的";
+                log = "연방 토큰이 부족합니다.";
                 return true;
             }
             return false;
@@ -1024,17 +1024,17 @@ namespace GaiaCore.Gaia
             var hex = GaiaGame.Map.HexArray[row, col];
             if (hex == null)
             {
-                log = "出界了兄弟";
+                log = "정상적인 공간이 아닙니다.";
                 return false;
             }
             if (hex.TFTerrain != Terrain.Empty)
             {
-                log = "死星必须建立在太空中";
+                log = "행성 위에는 놓을 수 없습니다.";
                 return false;
             }
             if (hex.Satellite.Any())
             {
-                log = "不能建在别人的卫星上";
+                log = "위성 위에는 놓을 수 없습니다.";
                 return false;
             }
             var distanceNeed = GaiaGame.Map.CalShipDistanceNeed(row, col, FactionName);
@@ -1042,7 +1042,7 @@ namespace GaiaCore.Gaia
             var qicship = Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0);
             if (QICs * 2 < distanceNeed - GetShipDistance)
             {
-                log = string.Format("死星距离太偏远了,需要{0}个Q来加速", Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0));
+                log = string.Format("정보 토큰이 {0}개 부족합니다.", Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0));
                 return false;
             }
 
@@ -1103,12 +1103,12 @@ namespace GaiaCore.Gaia
 
             if ((SatelliteHexList.Count + BuildingHexList.Count) != list.Count)
             {
-                log = "形成星盟的只能是本家的非盖亚建筑物以及未放置本家卫星的空地";
+                log = "연방 생성 선택이 중복되거나 누락되었습니다.";
                 return false;
             }
             if (PowerToken1 + PowerToken2 + PowerToken3 < SatelliteHexList.Count)
             {
-                log = string.Format("能量豆总数量为{0},放卫星数量为{1},能量豆不够", (PowerToken1 + PowerToken2 + PowerToken3), SatelliteHexList.Count);
+                log = string.Format("위성 토큰의 갯수가 {0}개, 필요한 토큰의 갯수는 {1}개입니다.", (PowerToken1 + PowerToken2 + PowerToken3), SatelliteHexList.Count);
                 return false;
             }
             if (list.Exists(x =>
@@ -1119,7 +1119,7 @@ namespace GaiaCore.Gaia
                 || (map.GetHex(y).FactionBelongTo == FactionName && !(map.GetHex(y).Building is GaiaBuilding)));
             }))
             {
-                log = "周围接壤的地块也不能形成过星盟不能有自己种族的卫星不能有自己的建筑";
+                log = "기존 연방에 속에 있는 행성과 접하면 안 됩니다.";
                 return false;
             }
 
@@ -1129,7 +1129,7 @@ namespace GaiaCore.Gaia
                 return terrenHex.IsAlliance == true;
             }))
             {
-                log = "有地块已经形成过星盟";
+                log = "기존 연방에 속해있는 행성이 포함되어 있습니다.";
                 return false;
             }
             var TerrenGroup = new List<List<Tuple<int, int>>>();
@@ -1153,7 +1153,7 @@ namespace GaiaCore.Gaia
             }
             if (TerrenGroup.Count != 1)
             {
-                log = "选择的所有点必须连通";
+                log = "연결되지 않는 행성 또는 위성이 있습니다.";
                 return false;
             }
 
@@ -1189,7 +1189,7 @@ namespace GaiaCore.Gaia
                 }
             }) < m_allianceMagicLevel)
             {
-                log = string.Format("能量等级不够{0}级", m_allianceMagicLevel);
+                log = string.Format("건물의 에너지의 합이 {0}보다 작습니다.", m_allianceMagicLevel);
                 return false;
             }
 
@@ -1251,12 +1251,12 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (rFNum2 != null || rFKind2 != null)
             {
-                log = "多种资源同时换取其他资源是Taklons专用语句";
+                log = "Taklons만 사용할 수 있는 능력입니다.";
                 return false;
             }
             if (rTNum2 != null || rTKind2 != null)
             {
-                log = "pw同时换取多项资源Nevla专用语句";
+                log = "Nevla만 사용할 수 있는 능력입니다.";
                 return false;
             }
             var str = rFKind + rTKind;
@@ -1265,12 +1265,12 @@ namespace GaiaCore.Gaia
                 case "pwq":
                     if (rFNum != rTNum * 4)
                     {
-                        log = "兑换比例为4：1";
+                        log = "4：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (PowerToken3 < rFNum)
                     {
-                        log = "能量值不够";
+                        log = "3파워 토큰이 부족합니다.";
                         return false;
                     }
                     TempPowerToken3 -= rFNum;
@@ -1290,12 +1290,12 @@ namespace GaiaCore.Gaia
                 case "pwo":
                     if (rFNum != rTNum * 3)
                     {
-                        log = "兑换比例为3：1";
+                        log = "3：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (PowerToken3 < rFNum)
                     {
-                        log = "能量值不够";
+                        log = "3파워 토큰이 부족합니다.";
                         return false;
                     }
                     TempPowerToken3 -= rFNum;
@@ -1315,12 +1315,12 @@ namespace GaiaCore.Gaia
                 case "pwk":
                     if (rFNum != rTNum * 4)
                     {
-                        log = "兑换比例为4：1";
+                        log = "4：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (PowerToken3 < rFNum)
                     {
-                        log = "能量值不够";
+                        log = "3파워 토큰이 부족합니다.";
                         return false;
                     }
                     TempPowerToken3 -= rFNum;
@@ -1340,12 +1340,12 @@ namespace GaiaCore.Gaia
                 case "pwc":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (PowerToken3 < rFNum)
                     {
-                        log = "能量值不够";
+                        log = "3파워 토큰이 부족합니다.";
                         return false;
                     }
                     TempPowerToken3 -= rFNum;
@@ -1365,12 +1365,12 @@ namespace GaiaCore.Gaia
                 case "qo":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (QICs < rFNum)
                     {
-                        log = "Q不够";
+                        log = "정보 토큰이 부족합니다.";
                         return false;
                     }
                     TempQICs -= rFNum;
@@ -1387,12 +1387,12 @@ namespace GaiaCore.Gaia
                 case "kc":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (Knowledge < rFNum)
                     {
-                        log = "知识不够";
+                        log = "지식이 부족합니다.";
                         return false;
                     }
                     TempKnowledge -= rFNum;
@@ -1409,12 +1409,12 @@ namespace GaiaCore.Gaia
                 case "oc":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (Ore < rFNum)
                     {
-                        log = "矿不够";
+                        log = "광물이 부족합니다.";
                         return false;
                     }
                     TempOre -= rFNum;
@@ -1431,12 +1431,12 @@ namespace GaiaCore.Gaia
                 case "opwt":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (Ore < rFNum)
                     {
-                        log = "矿不够";
+                        log = "광물이 부족합니다.";
                         return false;
                     }
                     TempOre -= rFNum;
@@ -1453,12 +1453,12 @@ namespace GaiaCore.Gaia
                 case "qc":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (Ore < rFNum)
                     {
-                        log = "Q不够";
+                        log = "정보 토큰이 부족합니다.";
                         return false;
                     }
                     TempQICs -= rFNum;
@@ -1475,12 +1475,12 @@ namespace GaiaCore.Gaia
                 case "qpwt":
                     if (rFNum != rTNum * 1)
                     {
-                        log = "兑换比例为1：1";
+                        log = "1：1 비율로 교환하셔야 합니다.";
                         return false;
                     }
                     if (QICs < rFNum)
                     {
-                        log = "q不够";
+                        log = "정보 토큰이 부족합니다.";
                         return false;
                     }
                     TempQICs -= rFNum;
@@ -1495,7 +1495,7 @@ namespace GaiaCore.Gaia
                     ActionQueue.Enqueue(action);
                     break;
                 default:
-                    log = "不支持这种转换";
+                    log = "존재 하지 않는 자원타입입니다.";
                     return false;
             }
             return true;
@@ -1524,7 +1524,7 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (m_AllianceTileGet == 0)
             {
-                log = "没有获得城版的权限";
+                log = "해당 연방이 남아있지 않습니다.";
                 return false;
             }
             Action action = () =>
@@ -1543,12 +1543,12 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (PredicateActionList.ContainsKey(actionStr)&& !PredicateActionList[actionStr].Invoke(this))
             {
-                log = "此行动不可用";
+                log = "이 행동은 사용하실 수 없습니다.";
                 return false;
             }
             if (!ActionList.ContainsKey(actionStr))
             {
-                log = "没有做此行动的板子";
+                log = "이 행동은 사용하실 수 없습니다.";
                 return false;
             }
             return true;

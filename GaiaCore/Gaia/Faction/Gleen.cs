@@ -30,7 +30,7 @@ namespace GaiaCore.Gaia
             TempOre -= 1;
             if (Ore < 0)
             {
-                log = "至少需要一块O代替Q在盖亚星球上建造矿场";
+                log = "광산을 건설하기 위한 광물이 부족합니다.";
                 return false;
             }
             return false;

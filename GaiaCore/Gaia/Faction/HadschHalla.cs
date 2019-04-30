@@ -39,12 +39,12 @@ namespace GaiaCore.Gaia
                     case "cq":
                         if (rFNum != rTNum * 4)
                         {
-                            log = "兑换比例为4：1";
+                            log = "4：1 비율로 교환하셔야 합니다.";
                             return false;
                         }
                         if (Credit < rFNum)
                         {
-                            log = "钱不够";
+                            log = "크레딧이 부족합니다.";
                         }
                         TempCredit -= rFNum;
                         TempQICs += rTNum;
@@ -60,12 +60,12 @@ namespace GaiaCore.Gaia
                     case "co":
                         if (rFNum != rTNum * 3)
                         {
-                            log = "兑换比例为3：1";
+                            log = "3：1 비율로 교환하셔야 합니다.";
                             return false;
                         }
                         if (Credit < rFNum)
                         {
-                            log = "钱不够";
+                            log = "크레딧이 부족합니다.";
                         }
                         TempCredit -= rFNum;
                         TempOre += rTNum;
@@ -81,12 +81,12 @@ namespace GaiaCore.Gaia
                     case "ck":
                         if (rFNum != rTNum * 4)
                         {
-                            log = "兑换比例为4：1";
+                            log = "4：1 비율로 교환하셔야 합니다.";
                             return false;
                         }
                         if (Credit < rFNum)
                         {
-                            log = "钱不够";
+                            log = "크레딧이 부족합니다.";
                         }
                         TempCredit -= rFNum;
                         TempKnowledge += rTNum;
@@ -102,12 +102,12 @@ namespace GaiaCore.Gaia
                     case "cpwt":
                         if (rFNum != rTNum * 3)
                         {
-                            log = "兑换比例为3：1";
+                            log = "3：1 비율로 교환하셔야 합니다.";
                             return false;
                         }
                         if (Credit < rFNum)
                         {
-                            log = "钱不够";
+                            log = "크레딧이 부족합니다.";
                         }
                         TempCredit -= rFNum;
                         TempPowerToken1 += rTNum;
