@@ -407,6 +407,9 @@
   <data name="命令" xml:space="preserve">
     <value>Command</value>
   </data>
+  <data name ="双人变体随机" xml:space="preserve">
+    <value>3P random map</value>
+  </data>
   <data name="四人固定" xml:space="preserve">
     <value>4P fixed map</value>
   </data>

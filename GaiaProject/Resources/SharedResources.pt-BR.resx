@@ -441,6 +441,9 @@
   <data name="命令" xml:space="preserve">
     <value>Comando</value>
   </data>
+  <data name ="双人变体随机" xml:space="preserve">
+    <value>Fixo 3p</value>
+  </data>
   <data name="四人固定" xml:space="preserve">
     <value>Fixo 4P</value>
   </data>

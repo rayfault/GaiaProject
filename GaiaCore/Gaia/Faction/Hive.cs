@@ -35,12 +35,12 @@ namespace GaiaCore.Gaia
             log = string.Empty;
             if (!(map.HexArray[row, col].OGTerrain == OGTerrain))
             {
-                log = "地形不符";
+                log = "하이브 지형이 아닙니다.";
                 return false;
             }
             if (!(map.HexArray[row, col].Building == null && map.HexArray[row, col].FactionBelongTo == null))
             {
-                log = "该地点已经有人占领了";
+                log = "이미 건물이 지어져 있습니다.";
                 return false;
             }
 
@@ -67,12 +67,12 @@ namespace GaiaCore.Gaia
                         .ToList();
                 if (SatelliteHexList.Count != list.Count)
                 {
-                    log = "峰人的指令只要标记出卫星位置即可,如果不需要放置卫星请直接使用Alliance.+ATLX即可";
+                    log = "위성 위치만 설정해주세요. 필요 없다면 바로 연방만 선택하시면 됩니다.";
                     return false;
                 }
                 if (QICs < SatelliteHexList.Count)
                 {
-                    log = string.Format("QIC总数量为{0},放卫星数量为{1},QIC不够", QICs, SatelliteHexList.Count);
+                    log = string.Format("QIC 갯수가{0}, 위성갯수{1} 보다 부족합니다.", QICs, SatelliteHexList.Count);
                     return false;
                 }
 
@@ -82,7 +82,7 @@ namespace GaiaCore.Gaia
                     return terrenHex.Satellite.Contains(FactionName);
                 }))
                 {
-                    log = "有地块已经放置过卫星";
+                    log = "이미 위성이 있는 자리를 재설정했습니다.";
                     return false;
                 }
                 int oldAllianceCount;
@@ -100,7 +100,7 @@ namespace GaiaCore.Gaia
                 var altNum = GameTileList.Count(x => x is AllianceTile) - (m_TransformLevel == 5 ? 1 : 0) + 1;
                 if (allianceListClone.Sum(x => (map.GetHex(x).Building?.MagicLevel).GetValueOrDefault() + (map.GetHex(x).IsSpecialSatelliteForHive ? 1 : 0)) < m_allianceMagicLevel * altNum)
                 {
-                    log = string.Format("主城等级为{0},能量等级不够{1}级", allianceListClone.Sum(x => map.GetHex(x).Building?.MagicLevel), m_allianceMagicLevel * altNum);
+                    log = string.Format("현재 건물 파워 수치가{0}, 필요 수치{1}보다 작습니다.", allianceListClone.Sum(x => map.GetHex(x).Building?.MagicLevel), m_allianceMagicLevel * altNum);
                     return false;
                 }
             }
@@ -109,7 +109,7 @@ namespace GaiaCore.Gaia
                 var altNum = GameTileList.Count(x => x is AllianceTile) - (m_TransformLevel == 5 ? 1 : 0) + 1;
                 if (GetMainAllianceGrade() < m_allianceMagicLevel * altNum)
                 {
-                    log = string.Format("主城等级为{0},能量等级不够{1}级", GetMainAllianceGrade(), m_allianceMagicLevel * altNum);
+                    log = string.Format("현재 건물 파워 수치가{0}, 필요 수치{1}보다 작습니다.", GetMainAllianceGrade(), m_allianceMagicLevel * altNum);
                     return false;
                 }
             }
@@ -164,24 +164,24 @@ namespace GaiaCore.Gaia
             var map = GaiaGame.Map;
             if (map.GetHex(pos) == null)
             {
-                log = "出界了";
+                log = "정상적인 공간이 아닙니다.";
                 return false;
             }
             if (map.GetHex(pos).TFTerrain != Terrain.Empty)
             {
-                log = "只有空地才可以放置空间站";
+                log = "행성 위에는 놓을 수 없습니다.";
                 return false;
             }
             if (map.GetHex(pos).Satellite.Contains(FactionName))
             {
-                log = "放置过卫星的地方不能放置空间站";
+                log = "위성 위에는 놓을 수 없습니다.";
                 return false;
             }
             var distanceNeed = GaiaGame.Map.CalShipDistanceNeed(pos.Item1, pos.Item2, FactionName);
             var qicship = Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0);
             if (QICs * 2 < distanceNeed - GetShipDistance)
             {
-                log = string.Format("空间站距离太偏远了,需要{0}个Q来加速", Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0));
+                log = string.Format("해당 지역에 짓기 위해서는, {0}개의 정보토큰이 필요합니다.", Math.Max((distanceNeed - GetShipDistance + 1) / 2, 0));
                 return false;
             }
             ActionQueue.Enqueue(() =>
@@ -195,7 +195,7 @@ namespace GaiaCore.Gaia
         }
         public class Hiv : MapAction
         {
-            public override string desc => "SH能力";
+            public override string desc => "SH능력";
             protected override int ResourceCost => 0;
             public override bool CanAction => true;
             public override bool InvokeGameTileAction(Faction faction)
