@@ -221,6 +221,9 @@ if (userInfo.isRound) {
         //行动类型，前后
         var actionType = obj.attr("actionType");
 
+        if (actionType == "before")
+            actionType = "now";
+
         var oldcode = $("#syntax").val();
         if (actionType !== 'now' && oldcode === "") {
             alert(_("必须先选择主要行动"));

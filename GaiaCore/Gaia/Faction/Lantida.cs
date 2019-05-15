@@ -30,19 +30,19 @@ namespace GaiaCore.Gaia
                 log = string.Empty;
                 if (map.HexArray[row, col] == null)
                 {
-                    log = "出界了兄弟";
+                    log = "정상적인 공간이 아닙니다";
                     return false;
                 }
                 //航海的Q
                 int QSHIP = 0;
                 if (Mines.Count < 1)
                 {
-                    log = "已经没有可用的矿场了";
+                    log = "남은 광산이 없습니다.";
                     return false;
                 }
                 if (!(Credit >= m_MineCreditCost && Ore >= m_MineOreCost))
                 {
-                    log = "资源不够";
+                    log = "광산을 건설하기 위한 자원이 부족합니다.";
                     return false;
                 }
 
