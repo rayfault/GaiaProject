@@ -63,6 +63,25 @@ namespace GaiaCore.Gaia
             var map = GaiaGame.Map;
             if (list != null)
             {
+                if (list.Count == 1 && AllianceList.Count == 1 && list.Exists(x =>
+                {
+                    TerrenHex terrenHex = GaiaGame.Map.HexArray[x.Item1, x.Item2];
+                    return (terrenHex.Building != null && terrenHex.FactionBelongTo == FactionName);
+                }))
+                {
+                    TerrenHex terrenHex = GaiaGame.Map.HexArray[AllianceList[0].Item1, AllianceList[0].Item2];
+                    terrenHex.IsAlliance = false;
+
+                    AllianceList.Clear();
+                    AllianceList.AddRange(list);
+
+                    terrenHex = GaiaGame.Map.HexArray[AllianceList[0].Item1, AllianceList[0].Item2];
+                    terrenHex.IsAlliance = true;
+
+                    log = "연방 초기 위치가 변경되었습니다. 턴을 진행해주세요.";
+                    return false;
+                }
+
                 var SatelliteHexList = list.Where(x => GaiaGame.Map.HexArray[x.Item1, x.Item2].TFTerrain == Terrain.Empty && !GaiaGame.Map.HexArray[x.Item1, x.Item2].Satellite.Contains(FactionName))
                         .ToList();
                 if (SatelliteHexList.Count != list.Count)
