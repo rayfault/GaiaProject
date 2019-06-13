@@ -145,7 +145,7 @@ namespace GaiaCore.Gaia
                 }
 
                 var surroundhex2 = map.GetSurroundhexWithBuildingAndSatellite(row, col, FactionName);
-                if (surroundhex2.Exists(x => (map.HexArray[x.Item1, x.Item2].Satellite != null && map.HexArray[x.Item1, x.Item2].Satellite.Contains(FactionName))))
+                if (!(this is Hive) && surroundhex2.Exists(x => (map.HexArray[x.Item1, x.Item2].Satellite != null && map.HexArray[x.Item1, x.Item2].Satellite.Contains(FactionName))))
                     map.HexArray[row, col].IsAlliance = true;
 
                 if (!isGaiaPlanet)
