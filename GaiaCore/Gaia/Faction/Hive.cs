@@ -61,24 +61,42 @@ namespace GaiaCore.Gaia
         {
             log = string.Empty;
             var map = GaiaGame.Map;
+
             if (list != null)
             {
+                int oldAllianceCount;
+                var allianceListClone = new List<Tuple<int, int>>(AllianceList);
+
                 if (list.Count == 1 && AllianceList.Count == 1 && list.Exists(x =>
                 {
                     TerrenHex terrenHex = GaiaGame.Map.HexArray[x.Item1, x.Item2];
                     return (terrenHex.Building != null && terrenHex.FactionBelongTo == FactionName);
                 }))
                 {
-                    TerrenHex terrenHex = GaiaGame.Map.HexArray[AllianceList[0].Item1, AllianceList[0].Item2];
-                    terrenHex.IsAlliance = false;
+                    allianceListClone.Clear();
+                    allianceListClone.AddRange(list);
+                    do
+                    {
+                        oldAllianceCount = allianceListClone.Count;
+                        var hexlist = GaiaGame.Map.GetHexListForBuildingAndSatellite(FactionName, list);
+                        var newNeighboor = hexlist.Where(x => !allianceListClone.Contains(x)).ToList().FindAll(x => allianceListClone.Exists(y => GaiaGame.Map.CalTwoHexDistance(x.Item1, x.Item2, y.Item1, y.Item2) == 1));
+                        allianceListClone.AddRange(newNeighboor);
+                    }
+                    while (oldAllianceCount != allianceListClone.Count);
+                    
+                    if (allianceListClone.Sum(x => (map.GetHex(x).Building?.MagicLevel).GetValueOrDefault() + (map.GetHex(x).IsSpecialSatelliteForHive ? 1 : 0)) >= 7)
+                    {
+                        AllianceList.ForEach(x =>
+                        {
+                            GaiaGame.Map.HexArray[x.Item1, x.Item2].IsAlliance = false;
+                        });
 
-                    AllianceList.Clear();
-                    AllianceList.AddRange(list);
+                        AllianceList.Clear();
+                        AllianceList.AddRange(list);
+                        return true;
+                    }
 
-                    terrenHex = GaiaGame.Map.HexArray[AllianceList[0].Item1, AllianceList[0].Item2];
-                    terrenHex.IsAlliance = true;
-
-                    log = "연방 초기 위치가 변경되었습니다. 턴을 진행해주세요.";
+                    log = "연방 파워가 부족해서 초기 위치를 바꿀 수 없습니다.";
                     return false;
                 }
 
@@ -104,9 +122,6 @@ namespace GaiaCore.Gaia
                     log = "이미 위성이 있는 자리를 재설정했습니다.";
                     return false;
                 }
-                int oldAllianceCount;
-                var allianceListClone = new List<Tuple<int, int>>(AllianceList);
-
                 //allianceListClone.AddRange(list);
                 do
                 {
