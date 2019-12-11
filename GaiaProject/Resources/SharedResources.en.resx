@@ -378,10 +378,7 @@
     <value>Auto refresh? (Websocket must be supported by your browser)</value>
   </data>
   <data name="双人变体固定" xml:space="preserve">
-    <value>Fixo 3P</value>
-  </data>
-  <data name="双人变体随机" xml:space="preserve">
-    <value>2P Variant</value>
+    <value>3P fixed map</value>
   </data>
   <data name="双人固定" xml:space="preserve">
     <value>2P fixed map</value>
