@@ -53,9 +53,29 @@
                     <li><a href="/GameInfo/Index?isAdmin=2">@localizer["公开游戏"]</a></li>
 
                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@localizer["统计"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu"> 
+                            <li>
+                                <a href="/GameInfo/UserScoreAvg?usercount=4">@localizer["玩家统计"]</a>
+                            </li>
+                            <li>
+                                <a href="/GameInfo/FactionStatistics?usercount=4">@localizer["种族统计"]</a>
+                            </li>
+                            <li>
+                                <a href="/GameInfo/FactionList?type=2&usercount=4">@localizer["种族高分"]</a>
+                            </li>
+                            <li>
+                                <a href="/GameInfo/FactionUserRateStatistics?usercount=4">@localizer["种族胜率"]</a>
+                            </li>
+                            <li>
+                                <a href="/GameInfo/TTStatistics">@localizer["科技版"]</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@localizer["帮助"] <span class="caret"></span></a>
                         <ul class="dropdown-menu"> 
-                            
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">@localizer["使用帮助"]</a></li>
                             <li>
                                 <a href="/Home/About">@localizer["种族介绍"]</a>
@@ -66,31 +86,6 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@localizer["统计"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu"> 
-                            <li>
-                                <a href="/GameInfo/UserScoreAvg?usercount=4">@localizer["玩家统计"]</a>
-                            </li>
-                            <li>
-                                <a href="/GameInfo/FactionStatistics?usercount=4">@localizer["种族统计"]</a>
-                            </li>
-
-                            <li><a href="/GameInfo/FactionList?type=2&usercount=4">@localizer["种族高分"]</a></li>
-
-                            <li>
-                                <a href="/GameInfo/FactionUserRateStatistics?usercount=4">@localizer["种族胜率"]</a>
-                            </li>
-
-                            <li>
-                                <a href="/GameInfo/TTStatistics">@localizer["科技版"]</a>
-                            </li>
-                            
-
-
-                        </ul>
-                    </li>
-                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@localizer["changelanguage"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
