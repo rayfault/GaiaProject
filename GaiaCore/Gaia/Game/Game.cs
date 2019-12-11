@@ -1,22 +1,18 @@
-﻿using GaiaCore.Gaia.Tiles;
-using GaiaCore.Util;
-using GaiaProject.Data;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using GaiaCore.Gaia.Game;
+using GaiaCore.Gaia.Tiles;
+using GaiaCore.Util;
 using GaiaDbContext.Models.AccountViewModels;
 using GaiaDbContext.Models.HomeViewModels;
-using Microsoft.AspNetCore.Http;
+using GaiaProject.Data;
+using Newtonsoft.Json;
 
 namespace GaiaCore.Gaia
 {
     /// <summary>
-    /// 每一局游戏实例化一个Game
+    /// 게임당 하나의 게임 인스턴스화
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class GaiaGame
@@ -47,7 +43,7 @@ namespace GaiaCore.Gaia
         }
 
         /// <summary>
-        /// 设置用户信息
+        /// 사용자 정보 설정
         /// </summary>
         public void SetUserInfo()
         {
@@ -85,10 +81,10 @@ namespace GaiaCore.Gaia
             bool ret;
             switch (GameStatus.stage)
             {
-                //地图阶段
+                //지도 단계
                 case Stage.RANDOMSETUP:
                     return ProcessSyntaxRandomSetup(syntax, ref log);
-                    //旋转地图
+                //지도 회전
                 case Stage.MAPROTATE:
                     return ProcessSyntaxMapRotate(syntax, ref log);
                 case Stage.FACTIONSELECTION:
@@ -165,7 +161,7 @@ namespace GaiaCore.Gaia
 
                         return ret;
                     }
-                ///只处理吸能量
+                ///에너지 흡수 만 처리
                 case Stage.ROUNDWAITLEECHPOWER:
                     if (GameSyntax.leechPowerRegex.IsMatch(syntax))
                     {
@@ -179,9 +175,9 @@ namespace GaiaCore.Gaia
                         return ret;
                     }
                     return false;
-                //盖亚阶段
+                //가이아 스테이지
                 case Stage.ROUNDGAIAPHASE:
-                    //一塔放置黑星的话需要吸收能量
+                    //탑에 검은 별을 넣으면 에너지를 흡수해야합니다.
                     if (GameSyntax.leechPowerRegex.IsMatch(syntax))
                     {
                         ret = ProcessSyntaxLeechPower(syntax, ref log);
@@ -205,8 +201,8 @@ namespace GaiaCore.Gaia
                             return false;
                         }
                     }
-                    
-               //收入阶段
+
+                //소득 단계
                 case Stage.ROUNDINCOME:
 
                     ret = ProcessSyntaxRoundIncomePhase(syntax, ref log);
@@ -350,7 +346,7 @@ namespace GaiaCore.Gaia
         }
 
         /// <summary>
-        /// 新的回合
+        /// 새로운 라운드
         /// </summary>
         public void NewRound()
         {
@@ -1620,16 +1616,7 @@ namespace GaiaCore.Gaia
             var random = new Random(Seed);
             //实例化地图
             MapMgr mapMgr=new MapMgr(this);
-            if (MapSelection == MapSelection.randomall4p)
-            {
-                Map = mapMgr.Get4PAllRandomMap(random);
-                //Map = mapMgr.Get4PRandomMap(random);
-            }
-            else if (MapSelection == MapSelection.random4p)
-            {
-                Map = mapMgr.Get4PRandomMap(random);
-            }
-            else if (MapSelection == MapSelection.fix2p)
+            if (MapSelection == MapSelection.fix2p)
             {
                 Map = mapMgr.Get2PFixedMap();
             }
@@ -1637,17 +1624,25 @@ namespace GaiaCore.Gaia
             {
                 Map = mapMgr.Get2PRandomMap(random);
             }
-            else if (MapSelection == MapSelection.random3p)
-            {
-                Map = mapMgr.Get3PRandomMap(random);
-            }
             else if (MapSelection == MapSelection.fix3p)
             {
                 Map = mapMgr.Get3PFixedMap();
             }
+            else if (MapSelection == MapSelection.random3p)
+            {
+                Map = mapMgr.Get3PRandomMap(random);
+            }
             else if (MapSelection == MapSelection.fix4p)
             {
                 Map = mapMgr.Get4PFixedMap();
+            }
+            else if (MapSelection == MapSelection.random4p)
+            {
+                Map = mapMgr.Get4PRandomMap(random);
+            }
+            else if (MapSelection == MapSelection.randomall4p)
+            {
+                Map = mapMgr.Get4PAllRandomMap(random);
             }
             else
             {
@@ -1676,7 +1671,7 @@ namespace GaiaCore.Gaia
             AllianceTileForTransForm = ALTList.RandomRemove(random);
         }
         /// <summary>
-        /// 修改阶段
+        /// 수정 단계
         /// </summary>
         /// <param name="stage"></param>
         private void ChangeGameStatus(Stage stage)
