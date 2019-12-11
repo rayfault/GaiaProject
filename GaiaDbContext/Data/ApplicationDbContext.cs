@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using GaiaDbContext.Models;
 using GaiaDbContext.Models.AccountViewModels;
 using GaiaDbContext.Models.HomeViewModels;
-using GaiaDbContext.Models;
 using GaiaDbContext.Models.SystemModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace GaiaProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         /// <summary>
-        /// 是否保存结果
+        /// 결과 저장 여부
         /// </summary>
         public const bool isSaveResult = true;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
@@ -31,51 +26,46 @@ namespace GaiaProject.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        //public static ApplicationDbContext Create()
-        //{
-        //    return new ApplicationDbContext();
-        //}
-
         public DbSet<UserFriend> UserFriend { get; set; }
 
         /// <summary>
-        /// 游戏信息
+        /// 게임 정보
         /// </summary>
         public DbSet<GameInfoModel> GameInfoModel { get; set; }
 
         /// <summary>
-        /// 游戏玩家种族信息
+        /// 게이머 레이스 정보
         /// </summary>
         public DbSet<GameFactionModel> GameFactionModel { get; set; }
 
         /// <summary>
-        /// 种族扩展信息
+        /// 인종 확장 정보
         /// </summary>
         public DbSet<GameFactionExtendModel> GameFactionExtendModel { get; set; }
 
         /// <summary>
-        /// 删除游戏请求
+        /// 게임 요청 삭제
         /// </summary>
         public DbSet<GameDeleteModel> GameDeleteModel { get; set; }
 
         /// <summary>
-        /// 比赛信息
+        /// 경기 정보
         /// </summary>
         public DbSet<MatchInfoModel> MatchInfoModel { get; set; }
 
         /// <summary>
-        /// 参加比赛
+        /// 경쟁에 참여
         /// </summary>
         public DbSet<MatchJoinModel> MatchJoinModel { get; set; }
 
 
         /// <summary>
-        /// 新闻
+        /// 뉴스
         /// </summary>
         public DbSet<NewsInfoModel> NewsInfoModel { get; set; }
 
         /// <summary>
-        /// 众凑信息
+        /// 홍보
         /// </summary>
         public DbSet<DonateRecordModel> DonateRecordModel { get; set; }
 
