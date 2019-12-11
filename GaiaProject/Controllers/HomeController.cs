@@ -942,7 +942,7 @@ namespace GaiaProject.Controllers
                     if (flag)
                     {
                         gg.UserActionLog = string.Join("\r\n", syntaxList);
-                        //重置游戏
+                        // 게임 초기화
                         GameMgr.RestoreGame(gg.GameName, gg, isToDict: true);
                     }
                     
@@ -971,7 +971,7 @@ namespace GaiaProject.Controllers
             return GameMgr.RedoOneStep(id);
         }
         /// <summary>
-        /// 删除游戏
+        /// 게임삭제
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -982,7 +982,7 @@ namespace GaiaProject.Controllers
             {
                 return false;
             }
-            //数据库一起删除
+            // DB까지 삭제
             GameInfoModel gameInfoModel = this.dbContext.GameInfoModel.SingleOrDefault(item => item.name == id);
             if (gameInfoModel != null)
             {
@@ -993,7 +993,7 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// 获取操作日志
+        /// 작업로그 가져오기
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -1005,9 +1005,9 @@ namespace GaiaProject.Controllers
 
             var gg = GameMgr.GetGameByName(id);
             StringBuilder stringBuilder = new StringBuilder();
-            //数据库查询
+            //데이터베이스 쿼리
             GameInfoModel singleOrDefault = this.dbContext.GameInfoModel.SingleOrDefault(item => item.name == id);
-            //内存没有游戏
+            // 메모리에 게임이 없을 경우
             if (gg == null)
             {
                 //singleOrDefault = this.dbContext.GameInfoModel.SingleOrDefault(item => item.name == id);
