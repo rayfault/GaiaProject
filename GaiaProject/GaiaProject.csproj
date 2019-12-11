@@ -75,10 +75,6 @@
     <ProjectReference Include="..\ManageTool\ManageTool.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="finishgame\" />
-    <Folder Include="Models\" />
-    <Folder Include="Pages\GameInfo\" />
-    <Folder Include="Pages\MatchInfo\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\新文件夹1\" />
     <Folder Include="wwwroot\images\新文件夹\" />
