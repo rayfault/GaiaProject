@@ -1116,9 +1116,6 @@
   <data name="得分" xml:space="preserve">
     <value>Score</value>
   </data>
-  <data name="回合" xml:space="preserve">
-    <value>Round</value>
-  </data>
 
   <data name="创建人/创建时间/结束时间" xml:space="preserve">
     <value>Author/Time/Finish</value>

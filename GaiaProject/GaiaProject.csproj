@@ -21,6 +21,7 @@
     <EmbeddedResource Remove="wwwroot\lib\新文件夹\**" />
     <None Remove="wwwroot\lib\新文件夹1\**" />
     <None Remove="wwwroot\lib\新文件夹\**" />
+    <EmbeddedResource Remove="Resources\SharedResources.pt-BR.resx" />
   </ItemGroup>
 
   <ItemGroup>
