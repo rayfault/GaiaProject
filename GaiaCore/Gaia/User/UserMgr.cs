@@ -5,9 +5,6 @@ using System.Text;
 
 namespace GaiaCore.Gaia.User
 {
-    class UserMgr
-    {
-    }
     public static class PowerUser
     {
         public static List<string> PowerUserList = new List<string>()
@@ -15,11 +12,8 @@ namespace GaiaCore.Gaia.User
             "RRR",
         };
         public static bool IsPowerUser(string username)
-        {
-            
-            
-            var ret=PowerUserList.Contains(username);
-            return ret;
+        { 
+            return PowerUserList.Contains(username);
         }
 
     }
