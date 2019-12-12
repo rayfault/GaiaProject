@@ -67,7 +67,7 @@ namespace GaiaProject
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            //services.AddMvc();
+            // services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -75,8 +75,8 @@ namespace GaiaProject
             services.Configure<IdentityOptions>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-                //사용자 이름 허용
-                //options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                // 사용자 이름 허용
+                // options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
@@ -140,7 +140,7 @@ namespace GaiaProject
             app.UseAuthentication();
 
 
-            //websocket 미들웨어, mvc 전에 선언해야합니다
+            // websocket 미들웨어, mvc 전에 선언해야합니다
             var webSocketOptions = new WebSocketOptions()
             {
                 KeepAliveInterval = TimeSpan.FromSeconds(120),
