@@ -8,7 +8,6 @@
     Layout = "_Layout";
 }
 
-
 <form>
     <div class="row">
         <div class="col-lg-8">
@@ -38,17 +37,12 @@
     <thead>
         <tr>
             <td>@localizer["玩家"]</td>
-
             <td>@localizer["局数"]</td>
             <td>@localizer["胜场"]</td>
             <td>@localizer["胜率"]</td>
             <td>@localizer["最低分"]</td>
             <td>@localizer["最高分"]</td>
-
             <td>@localizer["平均分"]</td>
-
-
-
         </tr>
     </thead>
     <tbody>
@@ -59,14 +53,11 @@
                 <td>
                     <a href="/GameInfo/FactionList?username=@localizer[item.ChineseName]">@localizer[item.ChineseName]</a>                  
                 </td>
-                <td>
-                    @item.count
-                </td>
+                <td>@item.count</td>
                 <td>@item.numberwin</td>
                 <td>@item.winprobability %</td>
                 <td>@item.scoremin</td>
                 <td>@item.scoremax</td>
-
                 <td>@item.scoreavg</td>
             </tr>
         }

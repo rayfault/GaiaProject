@@ -32,11 +32,10 @@
         {
             <div>
                 <span>菜单仅管理员可见</span>
-                <a href="/GameInfo/UpdatenFinishFromDb">检测游戏结束但没有种族信息的</a>
-                <a href="/GameInfo/UpdatenNoFromDb">检测游戏应该结束但没有更新的</a>
-
-                <a href="/GameInfo/DeleteGameInvalid">删除未结束但内存没有的游戏</a>
-                <a href="/GameInfo/UpdateGame">将内存的游戏重新保存到数据库</a>
+                <a href="/GameInfo/UpdatenFinishFromDb">레이스 정보없이 끝나는 게임 감지</a>
+                <a href="/GameInfo/UpdatenNoFromDb">게임이 끝나야하지만 업데이트되지 않아야 함을 감지</a>
+                <a href="/GameInfo/DeleteGameInvalid">메모리없이 완료되지 않은 게임 삭제</a>
+                <a href="/GameInfo/UpdateGame">인 메모리 게임을 데이터베이스에 다시 저장</a>
             </div>
 
         }
@@ -95,15 +94,15 @@
                         <td>
                             @if (@item.isDelete == 1)
                             {
-                                <span>已申请删除</span>
+                                <span>요청된삭제</span>
                             }
                             else if (isAdmin)
                             {
-                                <button class="btn btn-default delDbGame" id="@item.Id">直接删除</button>
+                                <button class="btn btn-default delDbGame" id="@item.Id">직접삭제</button>
                             }
                             else if ((item.username == usernmae && @item.GameStatus != 8))
                             {
-                                <button class="btn btn-default del" id="@item.Id">申请删除</button>
+                                <button class="btn btn-default del" id="@item.Id">삭제신청</button>
                             }
                         </td>
                     </tr>
