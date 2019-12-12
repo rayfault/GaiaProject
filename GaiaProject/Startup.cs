@@ -1,35 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-//using System.Net.WebSockets;
-using System.Threading;
-using System.Threading.Tasks;
+using Gaia.Service;
+using GaiaDbContext.Models;
+using GaiaProject.Data;
+using GaiaProject.Notice;
+using ManageTool;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Gaia.Service;
-using ManageTool;
-using GaiaProject.Data;
-using GaiaDbContext.Models;
-using GaiaProject.Notice;
-using Microsoft.AspNetCore.Http;
 using UEditorNetCore;
-using Microsoft.AspNetCore.Identity;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 
 namespace GaiaProject
 {
     public class Startup
     {
         /// <summary>
-        /// 是否启用好友系统
+        /// 프렌드 시스템 활성화 여부
         /// </summary>
         public static bool isEnableFriend = true;
 
@@ -45,13 +38,13 @@ namespace GaiaProject
                 // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets<Startup>();
 
-                //启动备份计划
+                // 백업 계획 시작
                 DaemonMgr.StartAll();
 
             }
             else
             {
-                //启动备份计划
+                // 백업 계획 시작
                 DaemonMgr.StartAll();
                 GaiaCore.Gaia.GameMgr.RestoreDictionary(string.Empty);
             }
@@ -82,7 +75,7 @@ namespace GaiaProject
             services.Configure<IdentityOptions>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-                //允许使用用户名
+                //사용자 이름 허용
                 //options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
                 options.Password.RequireDigit = false;
@@ -129,7 +122,6 @@ namespace GaiaProject
 
             var supportedCultures = new[]
             {
-                new CultureInfo("pt-BR"),
                 new CultureInfo("zh-CN"),
                 new CultureInfo("en"),
             };
@@ -148,7 +140,7 @@ namespace GaiaProject
             app.UseAuthentication();
 
 
-            //websocket中间件，需要在mvc之前声明
+            //websocket 미들웨어, mvc 전에 선언해야합니다
             var webSocketOptions = new WebSocketOptions()
             {
                 KeepAliveInterval = TimeSpan.FromSeconds(120),
@@ -165,12 +157,6 @@ namespace GaiaProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-
-
         }
-
-
-
     }
 }
