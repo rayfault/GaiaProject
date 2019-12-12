@@ -181,7 +181,25 @@
                     <td>@Model.Knowledge K</td>
                     <td>@Model.PowerTokenGaia PG</td>
                     <td></td>
-                    <td>@Model.PowerToken1/@Model.PowerToken2/@Model.PowerToken3 pw</td>
+                    @if (@Model is Taklons)
+                    {
+                        @if (((@Model as Taklons).BigStone) == 1)
+                        {
+                            <td><font color="#8b4513">@Model.PowerToken1</font>/@Model.PowerToken2/@Model.PowerToken3 pw</td>
+                        }
+                        else if (((@Model as Taklons).BigStone) == 2)
+                        {
+                            <td>@Model.PowerToken1/<font color="#8b4513">@Model.PowerToken2</font>/@Model.PowerToken3 pw</td>
+                        }
+                        else if (((@Model as Taklons).BigStone) == 3)
+                        {
+                            <td>@Model.PowerToken1/@Model.PowerToken2/<font color="#8b4513">@Model.PowerToken3 pw</font></td>
+                        }
+                    }
+                    else
+                    {
+                        <td>@Model.PowerToken1/@Model.PowerToken2/@Model.PowerToken3 pw</td>
+                    }
                 </tr>
                 <tr>
                     <td>M </td>
