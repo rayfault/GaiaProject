@@ -13,7 +13,6 @@
 }
 
 @{
-    //ViewBag.Title = "结束游戏";
     if (adminType == "1")
     {
         Layout = "_LayoutAdmin";
@@ -70,9 +69,7 @@
                     <td>@localizer["Match_Index_PlayersNum"]</td>
                     <td>@localizer["得分"]</td>
                     <td>@localizer["回合"]</td>
-
                     <td>@localizer["创建人/创建时间/结束时间"]</td>
-
                     <td>@localizer["Forum_Article_Operate"]</td>
                 </tr>
             </thead>
@@ -84,13 +81,9 @@
                             <a href="/Home/RestoreGame/@item.Id">@item.name</a>
                         </td>
                         <td>@item.UserCount</td>
-                        @*<td>@item.FSTList</td>*@
-
                         <td>@item.scoreFaction</td>
                         <td>@item.round</td>
-
                         <td>@item.username/@item.starttime.ToString("yyyy-MM-dd")/@item.endtime?.ToString("yyyy-MM-dd")</td>
-
                         <td>
                             @if (@item.isDelete == 1)
                             {
@@ -106,37 +99,24 @@
                             }
                         </td>
                     </tr>
-
                 }
-
             </tbody>
         </table>
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
 @Html.Partial("Partial_PageInfo", Model)
-
 
 <script>
     $(".del").click(function () {
         var id = this.id;
         var button = $(this);
-        if (confirm('确认申请删除游戏?')) {
+        if (confirm('게임 삭제 신청 확인?')) {
             $.post("/GameInfo/DelGame/" + id,
                 "",
                 function (data) {
                     if (data.info.state === 200) {
-                        //button.parent().parent().remove();
-                        alert("已经提交申请,其他玩家全部同意后方可删除!");
+                        alert("신청서가 제출되었으며 다른 모든 플레이어가 삭제에 동의 할 수 있습니다!");
                         window.location.reload();
                     }
                 });
@@ -146,7 +126,7 @@
     $(".delDbGame").click(function () {
         var id = this.id;
         var button = $(this);
-        if (confirm('确认删除游戏?')) {
+        if (confirm('게임 삭제 확인?')) {
             $.post("/GameInfo/DeleteDbGame/" + id,
                 "",
                 function (data) {

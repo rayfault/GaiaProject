@@ -44,7 +44,7 @@ namespace GaiaProject.Controllers
         #region 查看和删除游戏
         // GET: /<controller>/
         /// <summary>
-        /// 进行的游戏
+        /// 플레이 한 게임
         /// </summary>
         /// <returns></returns>
         public IActionResult Index(string username, int? isAdmin, GameInfoModel gameInfoModel, string joinname = null, int? scoremin = null, int pageindex = 1)
@@ -56,21 +56,21 @@ namespace GaiaProject.Controllers
             }
             IQueryable<GameInfoModel> list;
 
-            ViewBag.Title = "游戏列表";
-            if (isAdmin == null)//自己的游戏
+            ViewBag.Title = "게임리스트";
+            if (isAdmin == null)//자신의 게임
             {
                 list = from game in this.dbContext.GameInfoModel
                     from score in this.dbContext.GameFactionModel
                     where score.username == username && game.Id == score.gameinfo_id
                     select game;
             }
-            else if (isAdmin == 3)//管理游戏
+            else if (isAdmin == 3)//관리 게임
             {
                 list = this.dbContext.GameInfoModel.Where(item => item.username == username && item.GameStatus == 0);
             }
             else
             {
-                //如果是管理员查看全部游戏结果
+                //모든 게임 결과를 보는 것이 관리자 인 경우
                 if (isAdmin == 1)
                 {
                     if (this._userManager.GetUserAsync(User).Result.groupid == 1)
@@ -83,7 +83,7 @@ namespace GaiaProject.Controllers
                     }
 
                 }
-                //查看其他人的游戏
+                //다른 사람들의 게임보기
                 else if (isAdmin == 2)
                 {
                     list = from game in this.dbContext.GameInfoModel
@@ -98,21 +98,21 @@ namespace GaiaProject.Controllers
                         where score.username == username && game.Id == score.gameinfo_id
                         select game;
                 }
-                //名称
+                //이름
                 if (gameInfoModel.name != null)
                 {
                     list = list.Where(item => item.name == gameInfoModel.name);
                 }
-                //回合
+                //라운드
                 if (gameInfoModel.round != null)
                 {
                     list = list.Where(item => item.round == gameInfoModel.round);
                 }
-                //创建人
+                //방장
                 list = gameInfoModel.username == null
                     ? list
                     : list.Where(item => item.username == gameInfoModel.username);
-                //参加人
+                //참가자
                 if (joinname != null)
                 {
                     list = from game in list
@@ -120,7 +120,7 @@ namespace GaiaProject.Controllers
                         where score.username == joinname && game.Id == score.gameinfo_id
                         select game;
                 }
-                //最低分
+                //최저점수
                 if (scoremin != null)
                 {
                     list = from game in list
@@ -130,9 +130,7 @@ namespace GaiaProject.Controllers
                 }
             }
 
-
-
-            //状态
+            //상태
             list = gameInfoModel.GameStatus == null
                 ? list
                 : list.Where(item => item.GameStatus == gameInfoModel.GameStatus);
@@ -145,7 +143,7 @@ namespace GaiaProject.Controllers
 
         }
         /// <summary>
-        /// 申请删除列表
+        /// 리스트 삭제 요청
         /// </summary>
         /// <returns></returns>
         public IActionResult ApplyDeleteList()
@@ -155,7 +153,7 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// 提交删除游戏申请
+        /// 게임 삭제 요청 제출
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
