@@ -29,7 +29,7 @@ namespace GaiaCore.Gaia.Data
 
         };
 
-        //人类盖亚阶段
+        // 테란
         public static List<PwInfo> QuickActListTerraner = new List<PwInfo>()
         {
             new PwInfo(){code = "4pw to 1q",name = Messages.FourPWTo1QIC},
@@ -44,7 +44,7 @@ namespace GaiaCore.Gaia.Data
 
 
         /// <summary>
-        /// 超星人
+        /// 네뷸라
         /// </summary>
         public static List<PwInfo> QuickActListNevla = new List<PwInfo>()
         {
@@ -58,7 +58,7 @@ namespace GaiaCore.Gaia.Data
 
         };
         /// <summary>
-        /// 炽炎
+        /// 발타크
         /// </summary>
         public static List<PwInfo> QuickActListBalTak = new List<PwInfo>()
         {
@@ -71,7 +71,7 @@ namespace GaiaCore.Gaia.Data
 
         };
         /// <summary>
-        /// 利爪
+        /// 타클론
         /// </summary>
         public static List<PwInfo> QuickActListTaklons = new List<PwInfo>()
         {
@@ -85,7 +85,7 @@ namespace GaiaCore.Gaia.Data
 
         };
         /// <summary>
-        /// 圣禽
+        /// 하드쉬 할라
         /// </summary>
         public static List<PwInfo> QuickActListHadsch = new List<PwInfo>()
         {
