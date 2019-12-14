@@ -10,6 +10,7 @@ namespace GaiaCore.Gaia
     {
         public Firaks(GaiaGame gg) :base(FactionName.Firaks, gg)
         {
+            this.KoreanName = "파이락";
             this.ChineseName = "章鱼人";
             base.SetColor(5);
 
