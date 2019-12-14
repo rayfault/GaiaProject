@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace GaiaCore.Gaia
@@ -132,15 +130,15 @@ namespace GaiaCore.Gaia
         };
         public static Regex actionRegex = new Regex(string.Format("{0} ({1})", GameSyntax.action, string.Join("|", turnActionList)));
         /// <summary>
-        /// 获取AllianceTile正则
+        /// AllianceTile을 정기적으로 받기
         /// </summary>
         public static Regex ALTRegex = new Regex("\\+(alt[0-9])");
         /// <summary>
-        /// convert的正则
+        /// 정규 변환
         /// </summary>
         public static Regex ConvertRegex = new Regex("convert ([0-9]{1,2})([a-z]{1,4})(,([0-9]{1,2})([a-z]{1,3})){0,1} to ([0-9]{1,2})([a-z]{1,3})(,([0-9]{1,2})([a-z]{1,3})){0,1}");
         /// <summary>
-        /// 退回板子的正则
+        /// 보드 반납의 규칙 성
         /// </summary>
         public static Regex ReturnTechTilesRegex = new Regex("-stt[1-9]{1}");
         public static string planet = "planet";
@@ -149,16 +147,16 @@ namespace GaiaCore.Gaia
         public static Regex AllianceTileReGexRegex = new Regex("re (alt[0-9]{1})");
 
         /// <summary>
-        /// 跳过行动
+        /// 액션 건너 뛰기
         /// </summary>
         public static Regex PassRegexTurn = new Regex("pass turn");
 
         /// <summary>
-        /// 重置当前操作
+        /// 현재 작동 재설정
         /// </summary>
         public static Regex ResetRegexTurn = new Regex("reset turn");
         /// <summary>
-        /// drop种族
+        /// 드롭 레이스
         /// </summary>
         private static string DropFactionSyntax = "drop";
         public static Regex DropFactionRegex = new Regex(DropFactionSyntax);
@@ -168,7 +166,7 @@ namespace GaiaCore.Gaia
     public static class GameSpecialSyntax
     {
         /// <summary>
-        /// 跳过特殊行动的语句
+        /// 특별 조치 설명 건너 뛰기
         /// </summary>
         public static Regex PassRegex = new Regex("pass");
 
