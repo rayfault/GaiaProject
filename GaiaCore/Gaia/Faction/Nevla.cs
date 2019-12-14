@@ -9,6 +9,7 @@ namespace GaiaCore.Gaia
     {
         public Nevla(GaiaGame gg) : base(FactionName.Nevla, gg)
         {
+            this.KoreanName = "네뷸라";
             this.ChineseName = "超星人";
             base.SetColor(6);
             Knowledge -= 1;

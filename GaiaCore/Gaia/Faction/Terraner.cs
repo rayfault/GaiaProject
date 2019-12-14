@@ -8,6 +8,7 @@ namespace GaiaCore.Gaia
     {
         public Terraner(GaiaGame gg) : base(FactionName.Terraner, gg)
         {
+            this.KoreanName = "테란";
             this.ChineseName = "人类";
             base.SetColor(0);
 

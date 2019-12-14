@@ -10,6 +10,7 @@ namespace GaiaCore.Gaia
     {
         public Lantida(GaiaGame gg) : base(FactionName.Lantida, gg)
         {
+            this.KoreanName = "란티다";
             this.ChineseName = "亚特兰斯星人";
             base.SetColor(0);
             PowerToken1 += 2;

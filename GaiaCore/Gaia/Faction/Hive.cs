@@ -10,6 +10,7 @@ namespace GaiaCore.Gaia
     {
         public Hive(GaiaGame gg) : base(FactionName.Hive, gg)
         {
+            this.KoreanName = "하이브";
             this.ChineseName = "蜂人";
             base.SetColor(1);
             AllianceList = new List<Tuple<int, int>>();

@@ -9,6 +9,7 @@ namespace GaiaCore.Gaia
     {
         public MadAndroid(GaiaGame gg) : base(FactionName.MadAndroid, gg)
         {
+            this.KoreanName = "매드안드로이드";
             this.ChineseName = "疯狂机器";
             base.SetColor(5);
             IsMadAndroidAbilityUsed = false;

@@ -9,6 +9,7 @@ namespace GaiaCore.Gaia
     {
         public BalTak(GaiaGame gg) : base(FactionName.BalTak, gg)
         {
+            this.KoreanName = "발타크";
             this.ChineseName = "炽炎族";
             base.SetColor(2);
             if (gg != null)

@@ -8,6 +8,7 @@ namespace GaiaCore.Gaia
     {
         public Ambas(GaiaGame gg) : base(FactionName.Ambas, gg)
         {
+            this.KoreanName = "엠바스";
             this.ChineseName = "大使星人";
             base.SetColor(4);
             if (gg != null)

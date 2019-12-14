@@ -9,6 +9,7 @@ namespace GaiaCore.Gaia
     {
         public Taklons(GaiaGame gg) : base(FactionName.Taklons, gg)
         {
+            this.KoreanName = "타클론";
             this.ChineseName = "利爪族";
             base.SetColor(4);
             PowerToken1 += 1;

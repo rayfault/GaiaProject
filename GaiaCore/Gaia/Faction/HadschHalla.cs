@@ -8,6 +8,7 @@ namespace GaiaCore.Gaia
     {
         public HadschHalla(GaiaGame gg) : base(FactionName.HadschHalla, gg)
         {
+            this.KoreanName = "하드쉬할라";
             this.ChineseName = "圣禽族";
             base.SetColor(1);
 

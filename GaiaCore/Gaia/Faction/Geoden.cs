@@ -9,6 +9,7 @@ namespace GaiaCore.Gaia
     {
         public Geoden(GaiaGame gg) : base(FactionName.Geoden, gg)
         {
+            this.KoreanName = "기오덴";
             this.ChineseName = "晶矿星人";
             base.SetColor(2);
             if (gg != null)

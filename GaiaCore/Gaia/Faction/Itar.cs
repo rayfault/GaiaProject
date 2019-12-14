@@ -8,6 +8,7 @@ namespace GaiaCore.Gaia
     {
         public Itar(GaiaGame gg) :base(FactionName.Itar, gg)
         {
+            this.KoreanName = "아이타";
             this.ChineseName = "伊塔星人";
             base.SetColor(6);
 

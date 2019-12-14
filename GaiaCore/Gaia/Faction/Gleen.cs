@@ -9,6 +9,7 @@ namespace GaiaCore.Gaia
     {
         public Gleen(GaiaGame gg) : base(FactionName.Gleen, gg)
         {
+            this.KoreanName = "글린";
             this.ChineseName = "格伦星人";
             base.SetColor(3);
             m_QICs -= 1;

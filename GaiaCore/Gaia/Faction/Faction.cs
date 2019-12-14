@@ -1,10 +1,8 @@
-﻿using GaiaCore.Gaia.Tiles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using GaiaCore.Gaia.Game;
+using GaiaCore.Gaia.Tiles;
 using GaiaDbContext.Models.AccountViewModels;
 
 namespace GaiaCore.Gaia
@@ -152,6 +150,7 @@ namespace GaiaCore.Gaia
         /// 中文名称
         /// </summary>
         public string ChineseName { get; set; }
+        public String KoreanName { get; set; }
         public string UserName { get; set; }
         /// <summary>
         /// 选择种族的用户
