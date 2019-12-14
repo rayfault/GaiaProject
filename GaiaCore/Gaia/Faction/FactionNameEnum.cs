@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GaiaCore.Gaia
+﻿namespace GaiaCore.Gaia
 {
     public enum FactionName
     {
