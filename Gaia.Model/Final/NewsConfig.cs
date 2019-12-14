@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Gaia.Model.Final
+﻿namespace Gaia.Model.Final
 {
     public class NewsConfig
     {

@@ -1,6 +1,4 @@
-﻿
-
-namespace Gaia.Model.Match
+﻿namespace Gaia.Model.Match
 {
     /// <summary>
     /// 比赛用户统计
