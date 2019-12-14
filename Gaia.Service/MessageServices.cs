@@ -11,7 +11,7 @@ namespace Gaia.Service
     {
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            SendEmail(email, subject, message);
+//            SendEmail(email, subject, message);
             // Plug in your email service here to send an email.
             return Task.FromResult(0);
         }
