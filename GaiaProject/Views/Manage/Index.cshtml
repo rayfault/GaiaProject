@@ -1,35 +1,35 @@
 ﻿@model IndexViewModel
 @{
-    ViewData["Title"] = "管理你的账户";
+    ViewData["Title"] = "계정 관리";
 }
 
 <h2>@ViewData["Title"].</h2>
 <p class="text-success">@ViewData["StatusMessage"]</p>
 
 <div>
-    <h4>更改帐户设置</h4>
+    <h4>계정 설정 변경</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>密码:</dt>
+        <dt>비밀번호:</dt>
         <dd>
             @if (Model.HasPassword)
             {
-                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">修改</a>
+                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">수정</a>
             }
             else
             {
                 @*<a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>*@
             }
         </dd>
-        <dt>用户信息:</dt>
+        <dt>사용자 정보:</dt>
         <dd>
-            <a asp-controller="Manage" asp-action="ChangeInfo" class="btn-bracketed">修改</a>
+            <a asp-controller="Manage" asp-action="ChangeInfo" class="btn-bracketed">수정</a>
         </dd>
         @if (Startup.isEnableFriend)
         {
-            <dt>好友:</dt>
+            <dt>친구:</dt>
             <dd>
-                <a asp-controller="UserFriend" asp-action="Index" class="btn-bracketed">查看</a>
+                <a asp-controller="UserFriend" asp-action="Index" class="btn-bracketed">친구</a>
             </dd>
         }
 

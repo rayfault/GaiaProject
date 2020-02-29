@@ -15,29 +15,29 @@ namespace GaiaDbContext.Models.AccountViewModels
             this.resetPayNumber = 5;
         }
         /// <summary>
-        /// 用户名
+        /// 아이디
         /// </summary>
         [JsonProperty]
         public string username { get; set; }
         /// <summary>
-        /// 备忘
+        /// 메모
         /// </summary>
         [JsonProperty]
         public string remark { get; set; }
         /// <summary>
-        /// 是否提示信息
+        /// 정보를 프롬프트할지 여부
         /// </summary>
         [JsonProperty]
         public bool isTishi { get; set; }
         /// <summary>
-        /// 自动刷新
+        /// 자동 새로 고침
         /// </summary>
         [JsonProperty]
 
         public bool isSocket { get; set; }
 
         /// <summary>
-        /// 重置阐述
+        /// 정교화 재설정
         /// </summary>
 
         [JsonProperty]
@@ -45,7 +45,7 @@ namespace GaiaDbContext.Models.AccountViewModels
         public int resetNumber { get; set; }
 
         /// <summary>
-        /// 会员强制退回操作
+        /// 회원 강제 반품
         /// </summary>
 
         [JsonProperty]
@@ -53,14 +53,14 @@ namespace GaiaDbContext.Models.AccountViewModels
         public int resetPayNumber { get; set; }
 
         /// <summary>
-        /// 付费等级
+        /// 지불 수준
         /// </summary>
         [JsonProperty]
         public int? paygrade { get; set; }
 
 
         /// <summary>
-        /// 用户加入时积分
+        /// 사용자가 참여한 시점
         /// </summary>
         public int scoreUserStart { get; set; }
 

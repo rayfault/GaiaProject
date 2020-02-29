@@ -63,11 +63,5 @@ namespace GaiaProject.Data
         /// 뉴스
         /// </summary>
         public DbSet<NewsInfoModel> NewsInfoModel { get; set; }
-
-        /// <summary>
-        /// 홍보
-        /// </summary>
-        public DbSet<DonateRecordModel> DonateRecordModel { get; set; }
-
     }
 }

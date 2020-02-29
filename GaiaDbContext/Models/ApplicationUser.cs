@@ -10,11 +10,6 @@ namespace GaiaDbContext.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        //好友
-        //public List<ApplicationUser> Friends { get; set; }
-
-        //public string testName { get; set; }
-
         /// <summary>
         /// 分组ID，1=管理员
         /// </summary>

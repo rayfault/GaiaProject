@@ -6,7 +6,7 @@ using System.Text;
 namespace GaiaDbContext.Models.HomeViewModels
 {
     /// <summary>
-    /// 游戏聊天记录
+    /// 게임 채팅 기록
     /// </summary>
     public class GameChatModel
     {

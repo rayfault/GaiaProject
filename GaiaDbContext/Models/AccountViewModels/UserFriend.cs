@@ -19,13 +19,13 @@ namespace GaiaDbContext.Models.AccountViewModels
         [System.ComponentModel.DataAnnotations.MaxLength(50)]
         public string UserIdTo { get; set; }
         /// <summary>
-        /// 备注
+        /// 참고
         /// </summary>
         [System.ComponentModel.DataAnnotations.MaxLength(50)]
         public string Remark { get; set; }
 
         /// <summary>
-        /// 好友类型，1=白名单，2=黑名单
+        /// 친구 유형，1=화이트리스트，2=블랙리스트
         /// </summary>
         public int Type { get; set; }
     }
