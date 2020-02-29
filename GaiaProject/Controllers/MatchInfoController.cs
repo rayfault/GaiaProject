@@ -64,7 +64,6 @@ namespace GaiaProject.Controllers
                 {
                     MatchInfoModel matchInfoModel =
                         this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == model.Id);
-                    //���±�Ҫ����
                     matchInfoModel.Name = model.Name;
                     matchInfoModel.Contents = model.Contents;
                     matchInfoModel.IsAutoCreate = model.IsAutoCreate;
@@ -81,20 +80,14 @@ namespace GaiaProject.Controllers
             }
             return View(model);
         }
-        /// <summary>
-        /// ��ʾ������ϸ
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+
         public IActionResult MatchShow(int id)
         {
             MatchInfoModel matchInfoModel = this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == id);
             if (matchInfoModel != null)
             {
-                //��ѯ��ǰ������
                 IQueryable<MatchJoinModel> matchJoinModels = this.dbContext.MatchJoinModel.Where(item => item.matchInfo_id == matchInfoModel.Id).OrderByDescending(item => item.Score);
 
-                //��ѯ��ǰ����
                 IQueryable<GameInfoModel> gameInfoModels = this.dbContext.GameInfoModel.Where(item => item.matchId == matchInfoModel.Id);
 
 

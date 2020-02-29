@@ -363,57 +363,55 @@ namespace GaiaProject.Controllers
             return new JsonResult(jsonData);
 
         }
+
         /// <summary>
-        /// 退出游戏
+        /// 게임에서 나가기
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<JsonResult> ExitGame(int id)
         {
-            Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
-            GameInfoModel gameInfoModel = this.dbContext.GameInfoModel.SingleOrDefault(item => item.Id == id);
+            var jsonData = new Models.Data.UserFriendController.JsonData();
+            var gameInfoModel = dbContext.GameInfoModel.SingleOrDefault(item => item.Id == id);
             if (gameInfoModel != null)
             {
-                string username = this.User.Identity.Name;
-                //如果不包括自己
+                var username = User.Identity.Name;
+                // 자신을 포함시키지 않으면
                 if (!gameInfoModel.userlist.Contains(username))
                 {
                     jsonData.info.state = 400;
-                    jsonData.info.message = "没有加入,无法取消";
+                    jsonData.info.message = "가입하지 않고 취소 할 수 없습니다.";
                 }
                 else
                 {
                     if (gameInfoModel.username == username)
                     {
                         jsonData.info.state = 400;
-                        jsonData.info.message = "创建人暂时无法退出";
-
+                        jsonData.info.message = "방장은 나갈 수 없습니다.";
                     }
                     else
                     {
                         gameInfoModel.userlist = gameInfoModel.userlist.Replace("|" + username + "|", "");
-                        //判断结尾和开头
+                        // 끝과 시작을 판단
                         if (!gameInfoModel.userlist.StartsWith("|"))
                         {
                             gameInfoModel.userlist = "|" + gameInfoModel.userlist;
                         }
                         if (!gameInfoModel.userlist.EndsWith("|"))
                         {
-                            gameInfoModel.userlist = gameInfoModel.userlist + "|";
+                            gameInfoModel.userlist += "|";
                         }
 
-                        this.dbContext.GameInfoModel.Update(gameInfoModel);
-                        this.dbContext.SaveChanges();
+                        dbContext.GameInfoModel.Update(gameInfoModel);
+                        dbContext.SaveChanges();
                         jsonData.info.state = 200;
-                        jsonData.info.message = "成功";
+                        jsonData.info.message = "성공";
                     }
 
                 }
             }
-
-            return new JsonResult(jsonData);
-
+            return await Task.FromResult(new JsonResult(jsonData));
         }
 
 

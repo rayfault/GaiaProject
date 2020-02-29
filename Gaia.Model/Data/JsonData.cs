@@ -14,9 +14,11 @@ namespace GaiaProject.Models.Data
         {
             public JsonData()
             {
-                this.info=new Info();
+                this.info = new Info();
             }
+
             public Info info { get; set; }
+
             public object data;
         }
     }
