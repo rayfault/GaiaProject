@@ -8,9 +8,5 @@ namespace ManageTool
     {
         public static bool IsStopSyntax { get; set; }
         public static DateTime? ServerStartTime = null;
-        static ServerStatus()
-        {
-            IsStopSyntax = false;
-        }
     }
 }

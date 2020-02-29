@@ -146,71 +146,7 @@ namespace GaiaProject.Controllers
                 ModelState.AddModelError(string.Empty, "游戏名称已经存在");
                 return View(model);
             }
-            //保存游戏信息
-//            Action<GaiaGame> saveGameInfo = (result) =>
-//            {
-//                //保存到数据库
-//                GaiaDbContext.Models.HomeViewModels.GameInfoModel gameInfoModel =
-//                    new GaiaDbContext.Models.HomeViewModels.GameInfoModel()
-//                    {
-//                        name = model.Name,
-//
-//                        //UserCount = model.isHall?model.UserCount: username.Length,
-//                        MapSelction = model.MapSelction,
-//                        IsTestGame = model.IsTestGame ? 1 : 0,
-//                        GameStatus = 0,
-//                        starttime = DateTime.Now,
-//                        endtime = DateTime.Now,
-//                        username = HttpContext.User.Identity.Name,
-//
-//                        IsAllowLook = model.IsAllowLook,
-//                        IsRandomOrder = model.IsRandomOrder,
-//                        IsRotatoMap = model.IsRotatoMap,
-//                        version = 4,
-//
-//                        //游戏大厅
-//                        isHall = model.isHall,
-//                        remark = model.remark,
-//                        dropHour = model.dropHour,
-//                        //round = model.isHall?-1:0,
-//                    };
-//                //游戏大厅
-//                if (model.isHall)
-//                {
-//                    gameInfoModel.round = -1;
-//                    gameInfoModel.UserCount = model.UserCount;
-//                    gameInfoModel.userlist = string.Format("|{0}|", this.User.Identity.Name);
-//
-//                }
-//                else
-//                {
-//                    gameInfoModel.round = 0;
-//                    gameInfoModel.UserCount = username.Length;
-//                    gameInfoModel.userlist = string.Join("|", username);
-//
-//                }
-//                gameInfoModel.jinzhiFaction = this.HttpContext.Request.Form["jinzhi"];
-//                //有游戏信息
-//                if (result != null)
-//                {
-//                    //配置信息
-//                    gameInfoModel.ATTList = string.Join("|", result.ATTList.Select(item => item.name));
-//                    gameInfoModel.FSTList = string.Join("|", result.FSTList.Select(item => item.GetType().Name));
-//                    gameInfoModel.RBTList = string.Join("|", result.RBTList.Select(item => item.name));
-//                    gameInfoModel.RSTList = string.Join("|", result.RSTList.Select(item => item.GetType().Name));
-//                    gameInfoModel.STT3List = string.Join("|",
-//                        result.STT3List.GroupBy(item => item.name).Select(g => g.Max(item => item.name)));
-//                    gameInfoModel.STT6List = string.Join("|",
-//                        result.STT6List.GroupBy(item => item.name).Select(g => g.Max(item => item.name)));
-//                    gameInfoModel.scoreFaction =
-//                        string.Join(":",
-//                            result.FactionList.OrderBy(item => item.Score)
-//                                .Select(item => string.Format("{0}{1}({2})", item.ChineseName,
-//                                    "", item.UserName))); //最后的得分情况
-//                }
-//                this.dbContext.GameInfoModel.Add(gameInfoModel);
-//                this.dbContext.SaveChanges();
-//            };
+
 
             //如果是大厅
             if (model.isHall)

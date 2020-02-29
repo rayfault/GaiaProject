@@ -1,2 +1,0 @@
-﻿?culture=zh-CN&ui-culture=zh-CN
-?culture=pt-BR&ui-culture=pt-BR
