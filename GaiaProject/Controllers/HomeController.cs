@@ -74,18 +74,11 @@ namespace GaiaProject.Controllers
         {
             return View();
         }
-        /// <summary>
-        /// 种族图片
-        /// </summary>
-        /// <returns></returns>
         public IActionResult FactionImage()
         {
             return View();
         }
-        /// <summary>
-        /// 帮助页面
-        /// </summary>
-        /// <returns></returns>
+
         public IActionResult Contact()
         {
             IQueryable<NewsInfoModel> newsInfoModels = this.dbContext.NewsInfoModel.Where(item => item.type == 2).OrderBy(item=>item.Rank);
@@ -137,7 +130,8 @@ namespace GaiaProject.Controllers
             {
                 model.Name = Guid.NewGuid().ToString();
             }
-            //清除全部空格
+
+            //모든 공백을 지우십시오
             model.Name = model.Name.Trim().Replace(" ","");
 
             string[] username = new string[] { model.Player1, model.Player2, model.Player3, model.Player4 };
@@ -148,17 +142,16 @@ namespace GaiaProject.Controllers
             }
 
 
-            //如果是大厅
+            //로비라면
             if (model.isHall)
             {
-                //人数大于4
+                //4 명 이상
                 if (model.UserCount > 4)
                 {
                     return Redirect("/home/NewGameHall");
                 }
                 else
                 {
-                    //saveGameInfo(null);
                     GameMgr.SaveGameToDb(model, HttpContext.User.Identity.Name, this.HttpContext.Request.Form["jinzhi"], this.dbContext,null);
                     return Redirect("/Home/GameHallList/");
                 }
