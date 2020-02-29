@@ -21,11 +21,6 @@ namespace GaiaProject.Controllers
             this.cache = cache;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         #region ����
 
         /// <summary>
