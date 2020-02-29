@@ -4,7 +4,6 @@
     {
 
         //<summary>
-        //攻略类型
         //<option value="">--타입--</option>
         //<option value="1">홈</option>
         //<option value="2">도움말</option>

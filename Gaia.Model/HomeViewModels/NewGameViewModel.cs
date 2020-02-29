@@ -40,19 +40,19 @@ namespace GaiaProject.Models.HomeViewModels
 
 
         /// <summary>
-        /// 玩家人数
+        /// 플레이어 수
         /// </summary>
         [Display(Name = "玩家人数")]        
         public int UserCount { get; set; }
 
         /// <summary>
-        /// 游戏说明
+        /// 게임 설명
         /// </summary>
         [Display(Name = "游戏说明")]
         public string remark { get; set; }
 
         /// <summary>
-        /// 是否游戏大厅
+        /// 게임 로비 여부
         /// </summary>
         [Display(Name = "是否游戏大厅")]
         public bool isHall { get; set; }

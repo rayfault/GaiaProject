@@ -7,39 +7,39 @@ namespace GaiaProject.Models.Data
         public class StatisticsFaction
         {
             /// <summary>
-            /// 名称
+            /// 이름
             /// </summary>
             public string ChineseName { get; set; }
             /// <summary>
-            /// 局数
+            /// 라운드
             /// </summary>
             public int count { get; set; }
             /// <summary>
-            /// 最低分
+            /// 최저 점수
             /// </summary>
             public int scoremin { get; set; }
 
             /// <summary>
-            /// 最高分
+            /// 최고 점수
             /// </summary>
             public int scoremax { get; set; }
 
             public string scoremaxuser { get; set; }
             /// <summary>
-            /// 平均分
+            /// 평균 점수
             /// </summary>
             public int scoreavg { get; set; }
             /// <summary>
-            /// 胜率
+            /// 승률
             /// </summary>
             public int winprobability { get; set; }
             /// <summary>
-            /// 胜利场次
+            /// 승리
             /// </summary>
             public int numberwin { get; set; }
 
             /// <summary>
-            /// 出场率
+            /// 외관 비율
             /// </summary>
             public int OccurrenceRate { get; set; }
 

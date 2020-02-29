@@ -1,24 +1,24 @@
 ﻿namespace Gaia.Model.Match
 {
     /// <summary>
-    /// 比赛用户统计
+    /// 경쟁 사용자 통계
     /// </summary>
     public class MatchUserStatistics
     {
         /// <summary>
-        /// 用户名
+        /// 아이디
         /// </summary>
         public string UserName { get; set; }
         /// <summary>
-        /// 参加次数
+        /// 참여 수
         /// </summary>
         public int Count { get; set; }
         /// <summary>
-        /// 总分
+        /// 총점
         /// </summary>
         public int ScoreTotal { get; set; }
         /// <summary>
-        /// 平均分
+        /// 평균 점수
         /// </summary>
         public float ScoreAvg { get; set; }
     }
