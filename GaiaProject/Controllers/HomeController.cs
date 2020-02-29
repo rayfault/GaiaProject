@@ -287,24 +287,29 @@ namespace GaiaProject.Controllers
                 };
             return View("NewGame", model);
         }
+
         /// <summary>
-        /// 游戏大厅列表
+        /// 게임 로비 목록
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IActionResult GameHallList()
         {
             var task = _userManager.GetUserAsync(HttpContext.User);
-            Task[] taskarray = new Task[] { task };
-            Task.WaitAll(taskarray, millisecondsTimeout: 1000);
+            var taskArray = new Task[] {task};
+
+            Task.WaitAll(taskArray, millisecondsTimeout: 1000);
+
             if (task.Result != null)
             {
                 ViewData["Message"] = task.Result.UserName;
                 ViewData["GameList"] = GameMgr.GetAllGameName(task.Result.UserName);
             }
-            var list = this.dbContext.GameInfoModel.Where(item => item.isHall == true && item.round == -1).ToList();
+
+            var list = dbContext.GameInfoModel.Where(item => item.isHall == true && item.round == -1).ToList();
             return View(list);
         }
+
         /// <summary>
         /// 加入游戏
         /// </summary>
