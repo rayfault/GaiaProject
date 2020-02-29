@@ -7,7 +7,7 @@ namespace GaiaCore.Gaia.User
 {
     public static class PowerUser
     {
-        public static List<string> PowerUserList = new List<string>()
+        private static readonly List<string> PowerUserList = new List<string>()
         {
             "RRR",
         };
@@ -15,6 +15,5 @@ namespace GaiaCore.Gaia.User
         { 
             return PowerUserList.Contains(username);
         }
-
     }
 }
