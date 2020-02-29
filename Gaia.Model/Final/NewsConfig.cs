@@ -3,18 +3,18 @@
     public class NewsConfig
     {
 
-        /// <summary>
-        /// 攻略类型
-        /// <option value="">--类型--</option>
-        //    <option value = "1" > 首页 </ option >
-        //< option value="2">帮助</option>
-        //<option value = "3" > 新手引导 </ option >
-        //< option value="4">新闻</option>
-        /// </summary>
+        //<summary>
+        //攻略类型
+        //<option value="">--타입--</option>
+        //<option value="1">홈</option>
+        //<option value="2">도움말</option>
+        //<option value="3">초보자 가이드</option>
+        //<option value="4">뉴스</option>
+        //</summary>
         public const int TYPE_GL = 5;
 
         /// <summary>
-        /// 反馈和建议
+        /// 피드백 및 제안
         /// </summary>
         public const int TYPE_FEEDBACK = 6;
     }
