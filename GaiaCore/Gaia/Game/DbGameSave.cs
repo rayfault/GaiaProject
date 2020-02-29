@@ -13,19 +13,19 @@ namespace GaiaCore.Gaia.Game
     public class DbGameSave
     {
         /// <summary>
-        /// 保存哪区科技版
+        /// 기술 버전을 저장할 영역
         /// </summary>
         /// <param name="gaiaGame"></param>
         /// <param name="faction"></param>
         /// <param name="techTileStr"></param>
         public static void SaveTTData(GaiaGame gaiaGame,Faction faction,string techTileStr)
         {
-            //开始保存数据
+            //데이터 저장 시작
             if (!gaiaGame.IsSaveToDb)
             {
                 return;
             }
-            //            //如果游戏没有结束不保存数据
+            //            //게임이 끝나지 않은 경우 데이터를 저장하지 마십시오
             //            if (gaiaGame.GameStatus.status != Status.ENDED)
             //            {
             //                return;

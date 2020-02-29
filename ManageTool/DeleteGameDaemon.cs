@@ -9,9 +9,6 @@ using GaiaCore.Gaia.Data;
 
 namespace ManageTool
 {
-    /// <summary>
-    /// 守护进程父类
-    /// </summary>
     public class DeleteGameDaemon : Daemon
     {
         protected override int m_timeOut
@@ -25,7 +22,7 @@ namespace ManageTool
             foreach (var item in gamelist)
             {
                 GaiaGame gaiaGame = GameMgr.GetGameByName(item);
-                //删除结束游戏
+                //최종 게임 삭제
                 if (gaiaGame.GameStatus.stage == Stage.GAMEEND)
                 {
                     GameMgr.RemoveAndBackupGame(item);
@@ -39,18 +36,18 @@ namespace ManageTool
                 if (DateTime.Now.AddDays(-hours / 24) > gaiaGame.LastMoveTime)
                 {
                     //GameMgr.RemoveAndBackupGame(item);
-                    //不需要备份直接删除
+                    //백업하지 않고 삭제
                     //GameMgr.DeleteOneGame(item);
 
                     //记录用户drop 次数
                     //drop
                     String userName = gaiaGame.GetCurrentUserName();
-                    //如果没有用户
-                    //或者时2人游戏
-                    //没有用户
-                    //用户数量不等
-                    //第0回合
-                    //一场多个用户
+                    //사용자가없는 경우
+                    //아니면 2 인 게임
+                    //사용자가 없습니다
+                    //사용자 수
+                    //라운드 0
+                    //여러 사용자
                     if (String.IsNullOrEmpty(userName) || gaiaGame.UserCount == 2 || gaiaGame.UserGameModels == null ||
                         gaiaGame.UserGameModels.Count != gaiaGame.UserCount || gaiaGame.GameStatus.RoundCount == 0 ||
                         gaiaGame.UserGameModels.FindAll(user => user.username == userName).Count > 1)

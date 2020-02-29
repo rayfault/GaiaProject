@@ -7,16 +7,9 @@ using GaiaDbContext.Models.HomeViewModels;
 
 namespace GaiaCore.Gaia.Game
 {
-    //科技得分
+    //기술 점수
     public class DbTTSave
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="gaiaGame"></param>
-        /// <param name="faction"></param>
-        /// <param name="isAdd">追加</param>
         public static void Score(Type type,GaiaGame gaiaGame,Faction faction,bool isAdd=true)
         {
             if (type.Name.Contains("ATT") && gaiaGame.dbContext != null && gaiaGame.IsSaveToDb)
@@ -41,7 +34,7 @@ namespace GaiaCore.Gaia.Game
                     MethodInfo method = type.GetMethod(strMethod, new Type[] { typeof(Faction) });//取的方法描述//2
                     short result = (short)method.Invoke(obj, new object[] { faction, });//3
 
-                    //赋值
+                    //과제
                     Type modeltype = gameFactionExtendModel.GetType();
                     //var ps = type.GetProperties();
 
@@ -58,26 +51,11 @@ namespace GaiaCore.Gaia.Game
                             ps.SetValue(gameFactionExtendModel, (Int16)(result), null);
                         }
                     }
-                    //保存
+
+                    //저장
                     gaiaGame.dbContext.GameFactionExtendModel.Update(gameFactionExtendModel);
                     gaiaGame.dbContext.SaveChanges();
-
-                    //var ti = type.GetTypeInfo();
-                    //MethodInfo mtd = ti.GetMethod("GetResources");
-                    //var genMethod = mtd.MakeGenericMethod(typeof(int));
-
-                    //var obj = genMethod.Invoke(type, new object[] { });
-
-                    //                        switch (type.ToString())
-                    //                        {
-                    //                            case "ATT4":
-                    //                                gameFactionExtendModel.ATT4Score += (short)new ATT4().GetTriggerScore;
-                    //                                break;
-                    //
-                    //                        }
-                    //                        
                 }
-
             }
         }
     }

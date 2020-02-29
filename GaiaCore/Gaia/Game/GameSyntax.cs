@@ -9,7 +9,7 @@ namespace GaiaCore.Gaia
     public static class GameSyntax
     {
         /// <summary>
-        /// 游戏开局的语义
+        /// 게임 시작 시맨틱
         /// </summary>
         public const string setupGame = "setupgame seed";
         public static Regex setupGameRegex = new Regex(setupGame + "[0-9]+");
@@ -17,7 +17,7 @@ namespace GaiaCore.Gaia
         public static Regex setupMapRegex = new Regex(setupmap+ " (fix2p|random2p|fix3p|random3p|fix4p|random4p|randomall4p)");
 
         /// <summary>
-        /// 旋转地图
+        /// 지도 회전
         /// </summary>
         public const string setupMapRotate = "setupmaprotate";
         //星域 方向 步数 

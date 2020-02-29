@@ -1,18 +1,19 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Linq;
-using GaiaCore.Util;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using GaiaCore.Gaia.Data;
+using GaiaCore.Util;
 using GaiaDbContext.Models;
 using GaiaDbContext.Models.AccountViewModels;
+using GaiaDbContext.Models.HomeViewModels;
 using GaiaProject.Data;
 using GaiaProject.Models.HomeViewModels;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace GaiaCore.Gaia
 {
@@ -24,29 +25,20 @@ namespace GaiaCore.Gaia
         {
             m_dic = new Dictionary<string, GaiaGame>();
         }
-        /// <summary>
-        /// 创建游戏
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="model"></param>
-        /// <param name="result"></param>
-        /// <returns></returns>
 
         public static bool CreateNewGame(string[] username, NewGameViewModel model, out GaiaGame result,bool isSaveGame = false, UserManager<ApplicationUser> _userManager = null)
         {
             bool create = CreateNewGame(model.Name, username, out result, model.MapSelction, isTestGame: model.IsTestGame, isSocket: model.IsSocket, IsRotatoMap: model.IsRotatoMap, version: 4);
             if (_userManager != null)
             {
-                //用户列表
+                //사용자 목록
                 List<UserGameModel> listUser = new List<UserGameModel>();
-                //判断用户不存在
+                //사용자가 존재하지 않는지 확인
                 foreach (var item in username)
                 {
                     var user = _userManager.FindByNameAsync(item);
                     if (user.Result == null)
                     {
-                        //ModelState.AddModelError(string.Empty, item + "用户不存在");
-                        //return View("NewGame");
                         result = null;
                         return false;
                     }
@@ -61,7 +53,6 @@ namespace GaiaCore.Gaia
                         });
                     }
                 }
-                //赋值用户信息
                 result.UserGameModels = listUser;
             }
 
@@ -69,19 +60,11 @@ namespace GaiaCore.Gaia
             if (isSaveGame) { }
             return create;
         }
-        /// <summary>
-        /// 保存游戏到数据库
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="username"></param>
-        /// <param name="jinzhiFaction"></param>
-        /// <param name="dbContext"></param>
-        /// <param name="result"></param>
+
         public static void SaveGameToDb(NewGameViewModel model,string username,string jinzhiFaction, ApplicationDbContext dbContext,GaiaGame result,int matchId = 0,string[] userlist = null)
         {
-            //保存到数据库
-            GaiaDbContext.Models.HomeViewModels.GameInfoModel gameInfoModel =
-                new GaiaDbContext.Models.HomeViewModels.GameInfoModel()
+            GameInfoModel gameInfoModel =
+                new GameInfoModel()
                 {
                     name = model.Name,
 
@@ -98,7 +81,7 @@ namespace GaiaCore.Gaia
                     IsRotatoMap = model.IsRotatoMap,
                     version = 4,
 
-                    //游戏大厅
+                    //게임 로비
                     isHall = model.isHall,
                     remark = model.remark,
                     dropHour = model.dropHour,
@@ -107,7 +90,6 @@ namespace GaiaCore.Gaia
                     matchId = matchId,
                     //round = model.isHall?-1:0,
                 };
-            //游戏大厅
             if (model.isHall)
             {
                 gameInfoModel.round = -1;
@@ -126,7 +108,7 @@ namespace GaiaCore.Gaia
             //有游戏信息
             if (result != null)
             {
-                //配置信息
+                //구성 정보
                 gameInfoModel.ATTList = string.Join("|", result.ATTList.Select(item => item.name));
                 gameInfoModel.FSTList = string.Join("|", result.FSTList.Select(item => item.GetType().Name));
                 gameInfoModel.RBTList = string.Join("|", result.RBTList.Select(item => item.name));
@@ -138,25 +120,11 @@ namespace GaiaCore.Gaia
                 gameInfoModel.scoreFaction =
                     string.Join(":",
                         result.FactionList.OrderBy(item => item.Score)
-                            .Select(item => string.Format("{0}{1}({2})", item.ChineseName,
-                                "", item.UserName))); //最后的得分情况
+                            .Select(item => string.Format("{0}{1}({2})", item.ChineseName, "", item.UserName))); //최종 채점 상황
             }
             dbContext.GameInfoModel.Add(gameInfoModel);
             dbContext.SaveChanges();
         }
-        /// <summary>
-        /// 创建游戏
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="username"></param>
-        /// <param name="result"></param>
-        /// <param name="MapSelection"></param>
-        /// <param name="seed"></param>
-        /// <param name="isTestGame"></param>
-        /// <param name="isSocket"></param>
-        /// <param name="IsRotatoMap"></param>
-        /// <param name="version"></param>
-        /// <returns></returns>
 
         private static bool CreateNewGame(string name, string[] username, out GaiaGame result, string MapSelection, int seed = 0, bool isTestGame = false,bool isSocket = false,bool IsRotatoMap = false,int version=3)
         {
@@ -170,12 +138,12 @@ namespace GaiaCore.Gaia
                 seed = seed == 0 ? RandomInstance.Next(int.MaxValue) : seed;
                 result = new GaiaGame(username,name);
                 result.IsTestGame = isTestGame;
-                result.GameName = name;//游戏名称
-                result.IsSocket = isSocket;//即时制
-                result.IsRotatoMap = IsRotatoMap;//旋转地图
+                result.GameName = name;
+                result.IsSocket = isSocket;
+                result.IsRotatoMap = IsRotatoMap;
                 result.version = version;
 
-                //开局的两条命令
+                //시작할 두 주문
                 result.Syntax(GameSyntax.setupmap + " " + MapSelection, out string log);
                 result.Syntax(GameSyntax.setupGame + seed, out log);
                 m_dic.Add(name, result);
@@ -186,10 +154,9 @@ namespace GaiaCore.Gaia
         public static void RemoveOldBackupData()
         {
             var d = new DirectoryInfo(BackupDataPath);
-            //var filename = (from p in d.EnumerateFiles() orderby p.Name descending select p.Name).Take(5);
-            //留下的文件数量
+            //남은 파일 수
             int number = 0;
-            //按名称排序
+            //이름으로 정렬
             List<FileInfo> listFile = (from p in d.EnumerateFiles() orderby p.Name descending select p).ToList();
             foreach (var item in listFile)
             {
@@ -230,8 +197,8 @@ namespace GaiaCore.Gaia
             JsonSerializerSettings jsetting = new JsonSerializerSettings();
             jsetting.ContractResolver = new LimitPropsContractResolver(new string[] { "UserActionLog", "Username", "IsTestGame" });
             var str = JsonConvert.SerializeObject(m_dic[name], Formatting.Indented, jsetting);
-            var logPath = System.IO.Path.Combine(FinishGamePath, name + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt");
-            var logWriter = System.IO.File.CreateText(logPath);
+            var logPath = Path.Combine(FinishGamePath, name + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt");
+            var logWriter = File.CreateText(logPath);
             logWriter.Write(str);
             logWriter.Dispose();
             m_dic.Remove(name);
@@ -246,8 +213,7 @@ namespace GaiaCore.Gaia
             }
             else
             {
-                var result = from p in m_dic where p.Value.Username.Contains(userName) select p.Key;
-                return result;
+                return from p in m_dic where p.Value.Username.Contains(userName) select p.Key;
             }
         }
 
@@ -304,7 +270,7 @@ namespace GaiaCore.Gaia
                 // 백업데이터가 없을 경우, 패스
                 return;
             }
-            var logPath = System.IO.Path.Combine(BackupDataPath, DateTime.Now.ToString("yyyyMMddHHmmss") + "backup.txt");
+            var logPath = Path.Combine(BackupDataPath, DateTime.Now.ToString("yyyyMMddHHmmss") + "backup.txt");
             Console.WriteLine("========== Log : " + logPath + " ==========");
             File.WriteAllText(logPath, str + "\r\n");
         }
@@ -312,7 +278,7 @@ namespace GaiaCore.Gaia
         public static void WriteUserActionLog(string syntax,string username)
         {
             var str = string.Format("{0}/{1}/{2}\r\n", DateTime.Now.ToString(),username,syntax);
-            var logPath = System.IO.Path.Combine(UserActionLogDataPath, DateTime.Now.ToString("yyyyMMddHH") + ".txt");
+            var logPath = Path.Combine(UserActionLogDataPath, DateTime.Now.ToString("yyyyMMddHH") + ".txt");
             File.AppendAllText(logPath,str);
         }
 
@@ -326,7 +292,7 @@ namespace GaiaCore.Gaia
             return RestoreAllGames(logReader);
         }
 
-        public static async System.Threading.Tasks.Task<IEnumerable<string>> RestoreDictionaryFromServerAsync(string GameName = null, Func<string, bool> DebugInvoke = null)
+        public static async Task<IEnumerable<string>> RestoreDictionaryFromServerAsync(string GameName = null, Func<string, bool> DebugInvoke = null)
         {
             HttpClient client = new HttpClient();
             var logReader = await client.GetStringAsync("http://gaiaproject.chinacloudsites.cn/home/GetLastestActionLog");
@@ -378,7 +344,7 @@ namespace GaiaCore.Gaia
                 gg.version = item.Value.version;
             }
 
-            //设置用户信息
+            //사용자 정보 설정
             gg.SetUserInfo();
 
             try
@@ -393,7 +359,7 @@ namespace GaiaCore.Gaia
                         {
                             DebugInvoke.Invoke(item.Key + ":" + log);
                         }
-                        System.Diagnostics.Debug.WriteLine(item.Key + ":" + log);
+                        Debug.WriteLine(item.Key + ":" + log);
                         break;
                     }
                     else
@@ -402,7 +368,7 @@ namespace GaiaCore.Gaia
                     }
                     if (row != null)
                     {
-                        //相等，终止恢复
+                        //동일, 복구 종료
                         if (rowIndex == row)
                         {
                             break;
@@ -421,21 +387,21 @@ namespace GaiaCore.Gaia
                 {
                     DebugInvoke.Invoke(item.Key + ":" + ex.ToString());
                 }
-                System.Diagnostics.Debug.WriteLine(item.Key + ":" + ex.ToString());
+                Debug.WriteLine(item.Key + ":" + ex.ToString());
             }
-            //上次时间
+            //마지막으로
             gg.LastMoveTime = item.Value.LastMoveTime;
 
 
-            //需要加载到内存
+            //메모리에로드해야합니다
             if (isTodict)
             {
-                //如果是结束的游戏，跳过
+                //게임이 끝나면 건너 뛰십시오
                 if (item.Value.GameStatus.stage == Stage.GAMEEND)
                 {
                     
                 }
-                else//其它
+                else
                 {
                     if (m_dic.ContainsKey(item.Key))
                     {
@@ -540,11 +506,6 @@ namespace GaiaCore.Gaia
             m_dic.Clear();
         }
 
-        /// <summary>
-        /// 返回读取到的文件
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns></returns>
         public static string GetLastestBackupData(string filename = null)
         {
             if (string.IsNullOrEmpty(filename))
@@ -575,7 +536,7 @@ namespace GaiaCore.Gaia
                 {
                     Directory.CreateDirectory("backupdata");
                 }
-                return System.IO.Path.Combine(Directory.GetCurrentDirectory(), "backupdata");
+                return Path.Combine(Directory.GetCurrentDirectory(), "backupdata");
             }
         }
 
@@ -587,7 +548,7 @@ namespace GaiaCore.Gaia
                 {
                     Directory.CreateDirectory("UserActionLogData");
                 }
-                return System.IO.Path.Combine(Directory.GetCurrentDirectory(), "UserActionLogData");
+                return Path.Combine(Directory.GetCurrentDirectory(), "UserActionLogData");
             }
         }
 
@@ -599,7 +560,7 @@ namespace GaiaCore.Gaia
                 {
                     Directory.CreateDirectory("finishgame");
                 }
-                return System.IO.Path.Combine(Directory.GetCurrentDirectory(), "finishgame");
+                return Path.Combine(Directory.GetCurrentDirectory(), "finishgame");
             }
         }
 

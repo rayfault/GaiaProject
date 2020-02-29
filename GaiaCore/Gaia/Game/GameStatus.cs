@@ -20,11 +20,11 @@ namespace GaiaCore.Gaia
         private int m_TurnCount = 0;
 
         /// <summary>
-        /// 当前玩家的标签
+        /// 현재 플레이어의 태그
         /// </summary>
         private int m_PlayerIndex;
         /// <summary>
-        /// 初始设置房子是否走完一轮
+        /// 집의 초기 설정이 라운드를 완료했는지 여부
         /// </summary>
         public bool m_IntialFlag;
         private bool m_IntialFinish = false;
@@ -42,13 +42,13 @@ namespace GaiaCore.Gaia
             }
         }
         /// <summary>
-        /// 玩家人数
+        /// 플레이어 수
         /// </summary>
         public int PlayerNumber { get => m_PlayerNumber; set => m_PlayerNumber = value; }
         public int RoundCount { get => m_RoundCount; set => m_RoundCount = value; }
         public int TurnCount { get => m_TurnCount; set => m_TurnCount = value; }
         /// <summary>
-        /// 储存Gaia阶段的行动先后顺序
+        /// Gaia 단계에서 동작 시퀀스 저장
         /// </summary>
         public Queue<int> GaiaPlayerIndexQueue { get;  set; }
         public Queue<int> IncomePhaseIndexQueue { get; set; }
@@ -66,7 +66,7 @@ namespace GaiaCore.Gaia
         }
 
         /// <summary>
-        /// 新回合设置
+        /// 새로운 라운드 설정
         /// </summary>
         public void NewRoundReset(GaiaGame gaiaGame)
         {
@@ -97,7 +97,7 @@ namespace GaiaCore.Gaia
             return m_PassPlayerIndex.Count == m_PlayerNumber;
         }
         /// <summary>
-        /// 跳到下一位玩家的索引
+        /// 다음 플레이어의 색인으로 이동
         /// </summary>
         public void NextPlayer(List<Faction> listFactions)
         {
@@ -126,7 +126,7 @@ namespace GaiaCore.Gaia
             //if (this.pl)
         }
         /// <summary>
-        /// 倒叙选择
+        /// 역화 선택
         /// </summary>
         public void NextPlayerReverse()
         {
@@ -194,6 +194,6 @@ namespace GaiaCore.Gaia
         ROUNDWAITLEECHPOWER,
         ROUNDGAIAPHASE,
         GAMEEND,
-        MAPROTATE,//旋转地图
+        MAPROTATE,
     }
 }
