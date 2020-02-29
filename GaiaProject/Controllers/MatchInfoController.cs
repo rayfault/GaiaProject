@@ -32,10 +32,10 @@ namespace GaiaProject.Controllers
             return View(list);
         }
 
-        #region ±ÈÈü´´½¨ºÍ¹ÜÀí
+        #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½
 
         /// <summary>
-        /// Ìí¼Ó±ÈÈü
+        /// ï¿½ï¿½Ó±ï¿½ï¿½ï¿½
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -50,7 +50,7 @@ namespace GaiaProject.Controllers
             return View();
         }
         /// <summary>
-        /// Ìí¼Ó±ÈÈü
+        /// ï¿½ï¿½Ó±ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -64,7 +64,7 @@ namespace GaiaProject.Controllers
                 {
                     MatchInfoModel matchInfoModel =
                         this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == model.Id);
-                    //¸üÐÂ±ØÒªÊý¾Ý
+                    //ï¿½ï¿½ï¿½Â±ï¿½Òªï¿½ï¿½ï¿½ï¿½
                     matchInfoModel.Name = model.Name;
                     matchInfoModel.Contents = model.Contents;
                     matchInfoModel.IsAutoCreate = model.IsAutoCreate;
@@ -82,7 +82,7 @@ namespace GaiaProject.Controllers
             return View(model);
         }
         /// <summary>
-        /// ÏÔÊ¾±ÈÈüÏêÏ¸
+        /// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -91,10 +91,10 @@ namespace GaiaProject.Controllers
             MatchInfoModel matchInfoModel = this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == id);
             if (matchInfoModel != null)
             {
-                //²éÑ¯µ±Ç°±¨ÃûÈË
+                //ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 IQueryable<MatchJoinModel> matchJoinModels = this.dbContext.MatchJoinModel.Where(item => item.matchInfo_id == matchInfoModel.Id).OrderByDescending(item => item.Score);
 
-                //²éÑ¯µ±Ç°±ÈÈü
+                //ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
                 IQueryable<GameInfoModel> gameInfoModels = this.dbContext.GameInfoModel.Where(item => item.matchId == matchInfoModel.Id);
 
 
@@ -110,7 +110,7 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// É¾³ý±ÈÈü
+        /// É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -132,21 +132,21 @@ namespace GaiaProject.Controllers
 
 
         /// <summary>
-        /// ÏêÏ¸
+        /// ï¿½ï¿½Ï¸
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<JsonResult> ShowInfo(int id)
         {
-            //Ö÷ÒªÐÅÏ¢
+            //ï¿½ï¿½Òªï¿½ï¿½Ï¢
             var matchInfoModel = this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == id);
             Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
             //jsonData.data = matchInfoModel;
-            //²éÑ¯µ±Ç°±¨ÃûÈË
+            //ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             List<MatchJoinModel> matchJoinModels = this.dbContext.MatchJoinModel.Where(item => item.matchInfo_id == matchInfoModel.Id).ToList();
 
-            //²éÑ¯µ±Ç°±ÈÈü
+            //ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
             //List<GameInfoModel> gameInfoModels = this.dbContext.GameInfoModel.Where(item => item.matchId == matchInfoModel.Id).ToList();
 
             jsonData.data = new
@@ -159,7 +159,7 @@ namespace GaiaProject.Controllers
             return new JsonResult(jsonData);
         }
         /// <summary>
-        /// ¼ÓÈë±ÈÈü
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -172,45 +172,45 @@ namespace GaiaProject.Controllers
             if (user.isallowmatch != 1)
             {
                 jsonData.info.state = 0;
-                jsonData.info.message = "Äã±»½ûÖ¹²Î¼ÓÈºÁªÈü£¬ÇëÁªÏµ¹ÜÀíÔ±²éÑ¯Ô­Òò!";
+                jsonData.info.message = "ï¿½ã±»ï¿½ï¿½Ö¹ï¿½Î¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ñ¯Ô­ï¿½ï¿½!";
             }
             else
             {
                 var matchInfoModel = this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == id);
-                //±ÈÈüÐÅÏ¢²»Îª¿Õ
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Îªï¿½ï¿½
                 if (matchInfoModel != null)
                 {
                     if (this.dbContext.MatchJoinModel.Any(
                         item => item.matchInfo_id == matchInfoModel.Id && item.username == user.UserName))
                     {
                         jsonData.info.state = 0;
-                        jsonData.info.message = "ÒÑ¾­±¨Ãû";
+                        jsonData.info.message = "ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½";
 
                     }
                     else
                     {
-                        //ÊÇ·ñÒÑ¾­Âú×ã±¨Ãû
+                        //ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ã±¨ï¿½ï¿½
                         if (matchInfoModel.NumberMax != 0 && matchInfoModel.NumberNow == matchInfoModel.NumberMax)
                         {
                             jsonData.info.state = 0;
-                            jsonData.info.message = "±¨ÃûÈËÔ±ÒÑÂú";
+                            jsonData.info.message = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½";
                         }
                         else if (matchInfoModel.RegistrationEndTime < DateTime.Now)
                         {
                             jsonData.info.state = 0;
-                            jsonData.info.message = "±¨ÃûÊ±¼ä½ØÖ¹";
+                            jsonData.info.message = "ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ö¹";
                         }
                         else
                         {
-                            //±¨ÃûÈËÊý+1
+                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
                             matchInfoModel.NumberNow++;
                             this.dbContext.MatchInfoModel.Update(matchInfoModel);
-                            //±¨ÃûÐÅÏ¢
+                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
                             MatchJoinModel matchJoinModel = new MatchJoinModel();
                             matchJoinModel.matchInfo_id = id;//id
                             matchJoinModel.Name = matchInfoModel.Name;//name
 
-                            matchJoinModel.AddTime = DateTime.Now;//Ê±¼ä
+                            matchJoinModel.AddTime = DateTime.Now;//Ê±ï¿½ï¿½
                             matchJoinModel.username = user.UserName;
                             matchJoinModel.userid = user.Id;
 
@@ -231,15 +231,15 @@ namespace GaiaProject.Controllers
             return new JsonResult(jsonData);
         }
         /// <summary>
-        /// ×Ô¶¯´´½¨±ÈÈü
+        /// ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void AutoCreateMatch(MatchInfoModel matchInfoModel)
         {
-            //ÊÇ·ñ×Ô¶¯´´½¨±ÈÈü
-            //²¢ÇÒÖ»ÄÜ´´½¨7ÈËµÄ±ÈÈü
+            //ï¿½Ç·ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ü´ï¿½ï¿½ï¿½7ï¿½ËµÄ±ï¿½ï¿½ï¿½
             if (matchInfoModel.IsAutoCreate && matchInfoModel.NumberNow == matchInfoModel.NumberMax && matchInfoModel.NumberNow == 7)
             {
-                //È¡³öÈ«²¿µÄ±¨ÃûÈËÔ±
+                //È¡ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Ô±
                 List<MatchJoinModel> matchJoinModels = this.dbContext.MatchJoinModel.Where(item => item.matchInfo_id == matchInfoModel.Id).ToList();
 
                 if (matchJoinModels.Count() == 7)
@@ -248,7 +248,7 @@ namespace GaiaProject.Controllers
 
                     int[,] userOrder = new int[7, 4] { { 1, 5, 4, 3 }, { 5, 2, 6, 1 }, { 2, 4, 0, 5 }, { 4, 6, 3, 2 }, { 6, 0, 1, 4 }, { 0, 3, 5, 6 }, { 3, 1, 2, 0 } };
 
-                    //´´½¨ÓÎÏ·
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·
                     NewGameViewModel newGameViewModel = new NewGameViewModel()
                     {
                         dropHour = 72,
@@ -269,7 +269,7 @@ namespace GaiaProject.Controllers
                         {
                             matchJoinModels[userOrder[i, 0]].username, matchJoinModels[userOrder[i, 1]].username,matchJoinModels[userOrder[i, 2]].username,matchJoinModels[userOrder[i, 3]].username
                         };
-                        //ÓÎÏ·Ãû³Æ
+                        //ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
                         if (matchInfoModel.GameName.Contains("{0}"))
                         {
                             newGameViewModel.Name = string.Format(matchInfoModel.GameName, i + 1);
@@ -278,9 +278,9 @@ namespace GaiaProject.Controllers
                         {
                             newGameViewModel.Name = string.Concat(matchInfoModel.GameName, i + 1);
                         }
-                        //´´½¨ÓÎÏ·µ½ÄÚ´æ
-                        GameMgr.CreateNewGame(users, newGameViewModel, out GaiaGame gaiaGame, _userManager: _userManager);
-                        //±£´æµ½Êý¾Ý¿â
+                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Ú´ï¿½
+                        GameMgr.CreateNewGame(users, newGameViewModel, out GaiaGame gaiaGame, userManager: _userManager);
+                        //ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½
                         GameMgr.SaveGameToDb(newGameViewModel, "gaia", null, this.dbContext, gaiaGame, matchId: matchInfoModel.Id, userlist: users);
 
                     }
@@ -288,11 +288,11 @@ namespace GaiaProject.Controllers
 
 
                 }
-                //½«ÓÎÏ·±ê×¼Îª½øÐÐ×´Ì¬
+                //ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½×¼Îªï¿½ï¿½ï¿½ï¿½×´Ì¬
                 matchInfoModel.State = 1;
-                //±ÈÈü³¡´Î
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 matchInfoModel.MatchTotalNumber = 7;
-                //¿ªÊ¼Ê±¼ä
+                //ï¿½ï¿½Ê¼Ê±ï¿½ï¿½
                 matchInfoModel.StartTime = DateTime.Now;
 
                 this.dbContext.MatchInfoModel.Update(matchInfoModel);
@@ -302,7 +302,7 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// ÍË³ö±ÈÈü
+        /// ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -311,19 +311,19 @@ namespace GaiaProject.Controllers
         {
             Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
 
-            //±ÈÈüÐÅÏ¢
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
             MatchInfoModel matchInfoModel = this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == id);
             if (matchInfoModel != null)
             {
                 if (matchInfoModel.RegistrationEndTime < DateTime.Now)
                 {
                     jsonData.info.state = 0;
-                    jsonData.info.message = "±¨ÃûÊ±¼ä½ØÖ¹";
+                    jsonData.info.message = "ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ö¹";
                 }
                 else if (matchInfoModel.State != 0)
                 {
                     jsonData.info.state = 0;
-                    jsonData.info.message = "ÒÑ¾­¿ªÊ¼£¬ÎÞ·¨ÍË³ö";
+                    jsonData.info.message = "ï¿½Ñ¾ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Ë³ï¿½";
                 }
                 else
                 {
@@ -333,9 +333,9 @@ namespace GaiaProject.Controllers
                                                                                   .Name);
                     if (matchJoinModel != null)
                     {
-                        //É¾³ý
+                        //É¾ï¿½ï¿½
                         this.dbContext.MatchJoinModel.Remove(matchJoinModel);
-                        //±¨ÃûÈËÊý-1
+                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-1
                         matchInfoModel.NumberNow--;
                         this.dbContext.MatchInfoModel.Update(matchInfoModel);
 
@@ -346,7 +346,7 @@ namespace GaiaProject.Controllers
                     else
                     {
                         jsonData.info.state = 0;
-                        jsonData.info.message = "Ã»ÓÐ±¨Ãû";
+                        jsonData.info.message = "Ã»ï¿½Ð±ï¿½ï¿½ï¿½";
 
                     }
                 }
@@ -358,16 +358,16 @@ namespace GaiaProject.Controllers
         #endregion
 
 
-        #region ÓÃ»§ºÍÓÎÏ·¼ÓÈë±ÈÈüÒÔ¼°¼Æ·Ö
+        #region ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Æ·ï¿½
         /// <summary>
-        /// ½«ÓÎÏ·Ìí¼Óµ½±ÈÈü
+        /// ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         [HttpPost]
         public async Task<JsonResult> AddGameToMatch(int id, string gameid)
         {
             Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
 
-            //±ÈÈüÐÅÏ¢
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
             GameInfoModel gameInfoModel = this.dbContext.GameInfoModel.SingleOrDefault(item => item.Id == int.Parse(gameid));
             if (gameInfoModel != null)
             {
@@ -380,13 +380,13 @@ namespace GaiaProject.Controllers
             else
             {
                 jsonData.info.state = 0;
-                jsonData.info.message = "Ã»ÓÐ±¨Ãû";
+                jsonData.info.message = "Ã»ï¿½Ð±ï¿½ï¿½ï¿½";
             }
             return new JsonResult(jsonData);
         }
 
         /// <summary>
-        /// ½«ÓÃ»§Ìí¼Óµ½±ÈÈü
+        /// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         [HttpPost]
         public async Task<JsonResult> AddUserToMatch(int id, string username)
@@ -402,7 +402,7 @@ namespace GaiaProject.Controllers
                     matchJoinModel.matchInfo_id = id; //id
                     matchJoinModel.Name = matchInfoModel.Name; //name
 
-                    matchJoinModel.AddTime = DateTime.Now; //Ê±¼ä
+                    matchJoinModel.AddTime = DateTime.Now; //Ê±ï¿½ï¿½
                     matchJoinModel.username = applicationUser.UserName;
                     matchJoinModel.userid = applicationUser.Id;
 
@@ -410,7 +410,7 @@ namespace GaiaProject.Controllers
                     matchJoinModel.Score = 0;
 
 
-                    //ÓÃ»§ÊýÁ¿
+                    //ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
                     matchInfoModel.NumberNow++;
                     this.dbContext.MatchInfoModel.Update(matchInfoModel);
 
@@ -423,19 +423,19 @@ namespace GaiaProject.Controllers
                 }
                 else
                 {
-                    jsonData.info.message = "ÓÃ»§²»´æÔÚ";
+                    jsonData.info.message = "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
                 }
 
             }
             else
             {
-                jsonData.info.message = "±ÈÈü²»´æÔÚ";
+                jsonData.info.message = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
             }
             jsonData.info.state = 0;
             return new JsonResult(jsonData);
         }
         /// <summary>
-        /// ´ÓÓÎÏ·½«ÓÃ»§Ìí¼Ó
+        /// ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         [HttpPost]
         public async Task<JsonResult> AddUserFromGame(int id)
@@ -468,14 +468,14 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// ¼Æ·Ö
+        /// ï¿½Æ·ï¿½
         /// </summary>
         [HttpPost]
         public async Task<JsonResult> ScoreMatch(int id)
         {
             Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
 
-            //Ö÷ÒªÐÅÏ¢
+            //ï¿½ï¿½Òªï¿½ï¿½Ï¢
             var matchInfoModel = this.dbContext.MatchInfoModel.SingleOrDefault(item => item.Id == id);
             if (matchInfoModel == null)
             {
@@ -490,14 +490,14 @@ namespace GaiaProject.Controllers
             return new JsonResult(jsonData);
         }
         /// <summary>
-        /// È«²¿Ã»½áÊøµÄ¼Æ·Ö
+        /// È«ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼Æ·ï¿½
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IActionResult ScoreAll()
         {
             Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
-            //½áÊøµÄ±ä³É2
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½2
             IQueryable<MatchInfoModel> matchInfoModels = this.dbContext.MatchInfoModel.Where(item => item.State != 2 && item.State==1);
             foreach (MatchInfoModel matchInfoModel in matchInfoModels)
             {
@@ -507,15 +507,15 @@ namespace GaiaProject.Controllers
             return View("Index", this.dbContext.MatchInfoModel.ToList().OrderByDescending(item => item.Id).ToList());
         }
         /// <summary>
-        /// ¼Æ·Ö
+        /// ï¿½Æ·ï¿½
         /// </summary>
         /// <param name="matchInfoModel"></param>
         private void ScoreMatch(MatchInfoModel matchInfoModel)
         {
             //jsonData.data = matchInfoModel;
             matchInfoModel.MatchFinishNumber = 0;
-            //·ÖÊýÇåÁã
-            //²éÑ¯µ±Ç°±¨ÃûÈË
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             List<MatchJoinModel> matchJoinModels = this.dbContext.MatchJoinModel
                 .Where(item => item.matchInfo_id == matchInfoModel.Id).ToList();
             foreach (MatchJoinModel matchJoinModel in matchJoinModels)
@@ -527,10 +527,10 @@ namespace GaiaProject.Controllers
                 matchJoinModel.fourth = 0;
                 this.dbContext.MatchJoinModel.Update(matchJoinModel);
             }
-            //²éÑ¯µ±Ç°±ÈÈü
+            //ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
             IQueryable<GameInfoModel> gameInfoModels = this.dbContext.GameInfoModel.Where(item => item.matchId == matchInfoModel.Id);
 
-            //±éÀú±ÈÈü
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             foreach (GameInfoModel gameInfoModel in gameInfoModels)
             {
                 bool isFinish = DbGameSave.SaveMatchToDb(gameInfoModel, dbContext);
@@ -540,20 +540,20 @@ namespace GaiaProject.Controllers
                 }
             }
 
-            //Èç¹û7³¡È«²¿½áÊø£¬¸üÐÂ¹Ú¾ü
+            //ï¿½ï¿½ï¿½7ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹Ú¾ï¿½
             int gameCount = gameInfoModels.Count();
-            //Èç¹û½áÊø³¡´ÎÊÇÏÖÓÐ³¡´Î
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½
             if (matchInfoModel.MatchFinishNumber == gameCount)
             {
-                //²éÑ¯·ÖÊý×î¸ßµÄ
+                //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½
                 IQueryable<MatchJoinModel> match = this.dbContext.MatchJoinModel.Where(item => item.matchInfo_id == matchInfoModel.Id).OrderByDescending(item => item.Score);
                 String username = match.ToList()[0].username;
                 matchInfoModel.Champion = username;
-                //½øÐÐÖÐ1±ä½áÊø2
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½2
                 matchInfoModel.State = 2;
 
                 //matchInfoModel.MatchFinishNumber = (short) gameCount;
-                //½áÊøÊ±¼ä
+                //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
                 matchInfoModel.EndTime = DateTime.Now;
                 //matchInfoModel.MatchTotalNumber = (short)gameCount;
             }
@@ -561,7 +561,7 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// ÐÞ¸Ä×´Ì¬
+        /// ï¿½Þ¸ï¿½×´Ì¬
         /// </summary>
         /// <param name="id"></param>
         /// <param name="state"></param>
@@ -579,7 +579,7 @@ namespace GaiaProject.Controllers
 
         }
         /// <summary>
-        /// ²é¿´ÓÃ»§µÄÈ«²¿»ý·Ö
+        /// ï¿½é¿´ï¿½Ã»ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <returns></returns>
         public IActionResult UserScoreTotal()
@@ -604,7 +604,7 @@ namespace GaiaProject.Controllers
 
 
 
-        #region ÊÖ¶¯ÐÞ¸ÄÓÃ»§»ý·Ö
+        #region ï¿½Ö¶ï¿½ï¿½Þ¸ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 
         public IActionResult MatchJoinList(int id)
         {
@@ -619,7 +619,7 @@ namespace GaiaProject.Controllers
         }
 
         /// <summary>
-        /// ¸üÐÂÓÃ»§»ý·Ö
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

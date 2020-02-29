@@ -26,17 +26,17 @@ namespace GaiaCore.Gaia
             m_dic = new Dictionary<string, GaiaGame>();
         }
 
-        public static bool CreateNewGame(string[] username, NewGameViewModel model, out GaiaGame result,bool isSaveGame = false, UserManager<ApplicationUser> _userManager = null)
+        public static bool CreateNewGame(string[] username, NewGameViewModel model, out GaiaGame result,bool isSaveGame = false, UserManager<ApplicationUser> userManager = null)
         {
-            bool create = CreateNewGame(model.Name, username, out result, model.MapSelction, isTestGame: model.IsTestGame, isSocket: model.IsSocket, IsRotatoMap: model.IsRotatoMap, version: 4);
-            if (_userManager != null)
+            var create = CreateNewGame(model.Name, username, out result, model.MapSelction, isTestGame: model.IsTestGame, isSocket: model.IsSocket, IsRotatoMap: model.IsRotatoMap, version: 4);
+            if (userManager != null)
             {
                 //사용자 목록
-                List<UserGameModel> listUser = new List<UserGameModel>();
+                var listUser = new List<UserGameModel>();
                 //사용자가 존재하지 않는지 확인
                 foreach (var item in username)
                 {
-                    var user = _userManager.FindByNameAsync(item);
+                    var user = userManager.FindByNameAsync(item);
                     if (user.Result == null)
                     {
                         result = null;
@@ -57,39 +57,37 @@ namespace GaiaCore.Gaia
             }
 
             result.dropHour = model.dropHour;
-            if (isSaveGame) { }
             return create;
         }
 
         public static void SaveGameToDb(NewGameViewModel model,string username,string jinzhiFaction, ApplicationDbContext dbContext,GaiaGame result,int matchId = 0,string[] userlist = null)
         {
-            GameInfoModel gameInfoModel =
-                new GameInfoModel()
-                {
-                    name = model.Name,
+            var gameInfoModel = new GameInfoModel()
+            {
+                name = model.Name,
 
-                    //UserCount = model.isHall?model.UserCount: username.Length,
-                    MapSelction = model.MapSelction,
-                    IsTestGame = model.IsTestGame ? 1 : 0,
-                    GameStatus = 0,
-                    starttime = DateTime.Now,
-                    endtime = DateTime.Now,
-                    username = username,
+                MapSelction = model.MapSelction,
+                IsTestGame = model.IsTestGame ? 1 : 0,
+                GameStatus = 0,
+                starttime = DateTime.Now,
+                endtime = DateTime.Now,
+                username = username,
 
-                    IsAllowLook = model.IsAllowLook,
-                    IsRandomOrder = model.IsRandomOrder,
-                    IsRotatoMap = model.IsRotatoMap,
-                    version = 4,
+                IsAllowLook = model.IsAllowLook,
+                IsRandomOrder = model.IsRandomOrder,
+                IsRotatoMap = model.IsRotatoMap,
+                version = 4,
 
-                    //게임 로비
-                    isHall = model.isHall,
-                    remark = model.remark,
-                    dropHour = model.dropHour,
+                //게임 로비
+                isHall = model.isHall,
+                remark = model.remark,
+                dropHour = model.dropHour,
 
-                    //比赛id
-                    matchId = matchId,
-                    //round = model.isHall?-1:0,
-                };
+                //比赛id
+                matchId = matchId,
+                //round = model.isHall?-1:0,
+            };
+
             if (model.isHall)
             {
                 gameInfoModel.round = -1;
@@ -136,12 +134,14 @@ namespace GaiaCore.Gaia
             else
             {
                 seed = seed == 0 ? RandomInstance.Next(int.MaxValue) : seed;
-                result = new GaiaGame(username,name);
-                result.IsTestGame = isTestGame;
-                result.GameName = name;
-                result.IsSocket = isSocket;
-                result.IsRotatoMap = IsRotatoMap;
-                result.version = version;
+                result = new GaiaGame(username, name)
+                {
+                    IsTestGame = isTestGame,
+                    GameName = name,
+                    IsSocket = isSocket,
+                    IsRotatoMap = IsRotatoMap,
+                    version = version
+                };
 
                 //시작할 두 주문
                 result.Syntax(GameSyntax.setupmap + " " + MapSelection, out string log);
@@ -151,13 +151,12 @@ namespace GaiaCore.Gaia
             }
         }
 
+        // 백업데이터를 이름으로 정렬하려 50개만 남기고 나머지는 지움
         public static void RemoveOldBackupData()
         {
             var d = new DirectoryInfo(BackupDataPath);
-            //남은 파일 수
-            int number = 0;
-            //이름으로 정렬
-            List<FileInfo> listFile = (from p in d.EnumerateFiles() orderby p.Name descending select p).ToList();
+            var number = 0;
+            var listFile = (from p in d.EnumerateFiles() orderby p.Name descending select p).ToList();
             foreach (var item in listFile)
             {
                 if (number <= 50)

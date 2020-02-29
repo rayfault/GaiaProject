@@ -214,7 +214,7 @@ namespace GaiaProject.Controllers
 
            
             //创建游戏
-            bool create = GameMgr.CreateNewGame(username,model,out result,_userManager: _userManager);
+            bool create = GameMgr.CreateNewGame(username, model, out result, userManager: _userManager);
 
 
             if (!string.IsNullOrEmpty(model.jinzhiFaction))
