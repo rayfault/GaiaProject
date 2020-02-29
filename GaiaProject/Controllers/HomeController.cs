@@ -416,30 +416,30 @@ namespace GaiaProject.Controllers
 
 
         /// <summary>
-        /// 删除游戏
+        /// 로비에서 시작하지 않은 게임 삭제 - 게임을 만든 사람과 관리자만 보임
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<JsonResult> DeleteHallGame(int id)
         {
-            Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
-            GameInfoModel gameInfoModel = this.dbContext.GameInfoModel.SingleOrDefault(item => item.Id == id);
-            if (gameInfoModel != null)
-            {
-                string username = this.User.Identity.Name;
+            var jsonData = new Models.Data.UserFriendController.JsonData();
+            var gameInfoModel = dbContext.GameInfoModel.SingleOrDefault(item => item.Id == id);
 
-                //是自己创建的 或者管理员
-                if (username == gameInfoModel.username || (_userManager.GetUserAsync(User).Result != null && _userManager.GetUserAsync(User).Result.groupid == 1))
-                {
-                    this.dbContext.GameInfoModel.Remove(gameInfoModel);
-                    this.dbContext.SaveChanges();
-                    jsonData.info.state = 200;
-                }
+            if (gameInfoModel == null) return await Task.FromResult(new JsonResult(jsonData));
+
+            var username = User.Identity.Name;
+
+            // 본인 또는 관리자만 삭제할 수 있음
+            if (username == gameInfoModel.username || (_userManager.GetUserAsync(User).Result != null &&
+                                                       _userManager.GetUserAsync(User).Result.groupid == 1))
+            {
+                dbContext.GameInfoModel.Remove(gameInfoModel);
+                dbContext.SaveChanges();
+                jsonData.info.state = 200;
             }
 
-            return new JsonResult(jsonData);
-
+            return await Task.FromResult(new JsonResult(jsonData));
         }
 
 
