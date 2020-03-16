@@ -26,13 +26,17 @@ namespace GaiaCore.Gaia
             m_dic = new Dictionary<string, GaiaGame>();
         }
 
-        public static bool CreateNewGame(string[] username, NewGameViewModel model, out GaiaGame result,bool isSaveGame = false, UserManager<ApplicationUser> userManager = null)
+        public static bool CreateNewGame(string[] username, NewGameViewModel model, out GaiaGame result,
+            bool isSaveGame = false, UserManager<ApplicationUser> userManager = null)
         {
-            var create = CreateNewGame(model.Name, username, out result, model.MapSelction, isTestGame: model.IsTestGame, isSocket: model.IsSocket, IsRotatoMap: model.IsRotatoMap, version: 4);
+            var create = CreateNewGame(model.Name, username, out result, model.MapSelction,
+                isTestGame: model.IsTestGame, isSocket: model.IsSocket, IsRotatoMap: model.IsRotatoMap, version: 4);
+
             if (userManager != null)
             {
                 //사용자 목록
                 var listUser = new List<UserGameModel>();
+
                 //사용자가 존재하지 않는지 확인
                 foreach (var item in username)
                 {
