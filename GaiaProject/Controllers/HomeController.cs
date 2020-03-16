@@ -199,23 +199,21 @@ namespace GaiaProject.Controllers
 
         }
         /// <summary>
-        /// 创建游戏，从内存
+        /// 메모리에서 게임 만들기
         /// </summary>
-        private GaiaGame CreateGame(string[] username, NewGameViewModel model,out GaiaGame result)
+        private GaiaGame CreateGame(string[] username, NewGameViewModel model, out GaiaGame result)
         {
-            //删除空白玩家
+            // 빈 플레이어 제거
             username = username.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
-            //随机排序
+            // 무작위 순서
             if (model.IsRandomOrder)
             {
-                username = this.RandomSortList<string>(username).ToArray();
+                username = RandomSortList(username).ToArray();
             }
-
-           
-            //创建游戏
-            bool create = GameMgr.CreateNewGame(username, model, out result, userManager: _userManager);
-
+            
+            // 게임 만들기
+            var create = GameMgr.CreateNewGame(username, model, out result, userManager: _userManager);
 
             if (!string.IsNullOrEmpty(model.jinzhiFaction))
             {
@@ -237,7 +235,8 @@ namespace GaiaProject.Controllers
                     new Nevla(null)
                 };
                 result.JinzhiFaction = new List<Faction>();
-                foreach (string name in model.jinzhiFaction.Split(','))
+
+                foreach (var name in model.jinzhiFaction.Split(','))
                 {
                     result.JinzhiFaction.Add(list.Find(fac => fac.FactionName.ToString() == name));
                 }
@@ -310,40 +309,34 @@ namespace GaiaProject.Controllers
             return View(list);
         }
 
-        /// <summary>
-        /// 加入游戏
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpPost]
         public async Task<JsonResult> JoinGame(int id)
         {
-            Models.Data.UserFriendController.JsonData jsonData = new Models.Data.UserFriendController.JsonData();
-
-            GameInfoModel gameInfoModel = this.dbContext.GameInfoModel.SingleOrDefault(item => item.Id == id);
+            var jsonData = new Models.Data.UserFriendController.JsonData();
+            var gameInfoModel = dbContext.GameInfoModel.SingleOrDefault(item => item.Id == id);
             if (gameInfoModel != null)
             {
-                //如果包括自己
-                if (this.User.Identity.Name == null)
+                // 자신을 포함 시키면
+                if (User.Identity.Name == null)
                 {
                     jsonData.info.state = 400;
-                    jsonData.info.message = "没有登陆";
+                    jsonData.info.message = "로그인이 필요합니다.";
                 }
-                else if (gameInfoModel.userlist.Contains(string.Format("|{0}|", this.User.Identity.Name)))
+                else if (gameInfoModel.userlist.Contains(string.Format("|{0}|", User.Identity.Name)))
                 {
                     jsonData.info.state = 400;
-                    jsonData.info.message = "已经加入";
+                    jsonData.info.message = "이미 참여한 상태입니다.";
                 }
                 else
                 {
-                    gameInfoModel.userlist = gameInfoModel.userlist + this.User.Identity.Name + "|";
+                    gameInfoModel.userlist = gameInfoModel.userlist + User.Identity.Name + "|";
 
-                    //判断是否满足人数，正式开始游戏
-                    string[] username = gameInfoModel.userlist.Trim('|').Split('|');
+                    // 인원이 만족하는지 판단하고 공식적으로 게임을 시작합니다.
+                    var username = gameInfoModel.userlist.Trim('|').Split('|');
                     if (username.Length == gameInfoModel.UserCount)
                     {
                         gameInfoModel.round = 0;
-                        NewGameViewModel newGameViewModel = new NewGameViewModel()
+                        var newGameViewModel = new NewGameViewModel()
                         {
                             IsAllowLook = gameInfoModel.IsAllowLook,
                             IsRandomOrder = gameInfoModel.IsRandomOrder,
@@ -353,19 +346,21 @@ namespace GaiaProject.Controllers
                             Name = gameInfoModel.name,
                             jinzhiFaction = gameInfoModel.jinzhiFaction,
                         };
-                        //创建游戏
+
+                        // 게임 만들기
                         GaiaGame gaiaGame;
-                        this.CreateGame(username, newGameViewModel,out gaiaGame);
+                        CreateGame(username, newGameViewModel, out gaiaGame);
                     }
-                    this.dbContext.GameInfoModel.Update(gameInfoModel);
-                    this.dbContext.SaveChanges();
+
+                    dbContext.GameInfoModel.Update(gameInfoModel);
+                    dbContext.SaveChanges();
 
                     jsonData.info.state = 200;
-                    jsonData.info.message = "成功";
+                    jsonData.info.message = "성공";
                 }
             }
 
-            return new JsonResult(jsonData);
+            return await Task.FromResult(new JsonResult(jsonData));
 
         }
 
